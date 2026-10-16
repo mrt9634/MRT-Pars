@@ -9,26 +9,38 @@
     </item>
 
     <!-- درخشش نارنجی گوشه‌ی پایین-چپ (امضای BMW iDrive) -->
-    <item android:gravity="bottom|start">
+    <item
+        android:width="600dp"
+        android:height="400dp"
+        android:gravity="bottom|start"
+        android:top="-200dp"
+        android:right="-300dp">
         <shape android:shape="oval">
             <gradient
                 android:type="radial"
                 android:gradientRadius="400dp"
+                android:centerX="0.5"
+                android:centerY="0.5"
                 android:startColor="#33FF8A1A"
                 android:endColor="#00000000"/>
-            <size android:width="600dp" android:height="400dp"/>
         </shape>
     </item>
 
     <!-- درخشش آبی ملایم گوشه‌ی بالا-راست -->
-    <item android:gravity="top|end">
+    <item
+        android:width="500dp"
+        android:height="350dp"
+        android:gravity="top|end"
+        android:bottom="-175dp"
+        android:left="-250dp">
         <shape android:shape="oval">
             <gradient
                 android:type="radial"
                 android:gradientRadius="350dp"
+                android:centerX="0.5"
+                android:centerY="0.5"
                 android:startColor="#223FA9F5"
                 android:endColor="#00000000"/>
-            <size android:width="500dp" android:height="350dp"/>
         </shape>
     </item>
 </layer-list>
