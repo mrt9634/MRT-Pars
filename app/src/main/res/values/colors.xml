@@ -1,13 +1,78 @@
 <resources>
+    <!-- ============ پایه ============ -->
     <color name="bg">#FF06080C</color>
     <color name="bg2">#FF0E1420</color>
+    <color name="bg_pure">#FF000000</color>
+
+    <!-- ============ شیشه ============ -->
     <color name="glass">#1FFFFFFF</color>
     <color name="glass_stroke">#33FFFFFF</color>
+    <color name="glass_strong">#2AFFFFFF</color>
+
+    <!-- ============ متن ============ -->
     <color name="text">#FFEFF3F8</color>
     <color name="text_dim">#FF8A96A8</color>
+    <color name="text_muted">#55FFFFFF</color>
+
+    <!-- ============ برند ============ -->
     <color name="accent">#FF3FA9F5</color>
     <color name="accent_soft">#553FA9F5</color>
+
+    <!-- ============ وضعیت ============ -->
     <color name="red">#FFE5484D</color>
     <color name="amber">#FFF5A524</color>
     <color name="green">#FF3DD68C</color>
+
+    <!-- ============ Hub / iDrive cards ============ -->
+    <color name="card_bg">#0AFFFFFF</color>
+    <color name="card_stroke">#33FFFFFF</color>
+    <color name="card_bg_selected">#33C0521A</color>
+    <color name="card_stroke_selected">#FFE05A1F</color>
+
+    <!-- ============ Splash ============ -->
+    <color name="splash_bg">#FF000000</color>
+    <color name="splash_text">#FFFFFFFF</color>
+    <color name="splash_text_dim">#FFB0B0B0</color>
+    <color name="splash_version">#66FFFFFF</color>
+
+    <!-- ============ Dashboard (BMW Live Cockpit) ============ -->
+    <color name="gauge_track">#22FFFFFF</color>
+    <color name="gauge_progress">#FF3FA9F5</color>
+    <color name="gauge_redline">#AAE5484D</color>
+    <color name="gauge_tick_major">#EEFFFFFF</color>
+    <color name="gauge_tick_minor">#66FFFFFF</color>
+    <color name="gauge_number">#FFEFF3F8</color>
+    <color name="gauge_accent_yellow">#FFF5C542</color>
+
+    <!-- ============ Speed limit sign ============ -->
+    <color name="limit_ring">#FFE5484D</color>
+    <color name="limit_fill">#FFFFFFFF</color>
+    <color name="limit_text">#FF000000</color>
+
+    <!-- ============ Gear strip ============ -->
+    <color name="gear_active">#FFEFF3F8</color>
+    <color name="gear_inactive">#55FFFFFF</color>
+
+    <!-- ============ Music Player (E46 style) ============ -->
+    <color name="music_bg">#FF0A0E14</color>
+    <color name="music_highlight">#FFC0521A</color>
+    <color name="music_row_selected">#33FF8A1A</color>
+    <color name="music_progress">#FFFFFFFF</color>
+    <color name="music_progress_bg">#33FFFFFF</color>
+    <color name="music_cover_bg">#FF1A1F28</color>
+
+    <!-- ============ GPS / Navigation ============ -->
+    <color name="gps_road">#FF1A1F28</color>
+    <color name="gps_route">#FF3FA9F5</color>
+    <color name="gps_marker">#FFE5484D</color>
+    <color name="gps_bg">#FF0A0E14</color>
+
+    <!-- ============ Settings ============ -->
+    <color name="settings_divider">#22FFFFFF</color>
+    <color name="settings_row_bg">#0DFFFFFF</color>
+
+    <!-- ============ نوار پایین / TopBar ============ -->
+    <color name="statusbar_bg">#CC000000</color>
+    <color name="statusbar_text">#FFEFF3F8</color>
+    <color name="statusbar_icon">#FFB0B0B0</color>
 </resources>
