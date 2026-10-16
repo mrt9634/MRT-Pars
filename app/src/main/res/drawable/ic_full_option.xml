@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- ============ سپر بیرونی ============ -->
+    <!-- شکل: پنج‌ضلعی با نوک به پایین (شبیه سپر FULL OPTION) -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="3"
+        android:fillColor="#00000000"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M100,18 L162,42 L162,110 Q162,150 100,178 Q38,150 38,110 L38,42 Z"/>
+
+    <!-- ============ خطوط داخلی (سبک F) ============ -->
+    <!-- خط اول (بالا) -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="3"
+        android:fillColor="#00000000"
+        android:strokeLineCap="round"
+        android:pathData="M62,68 L138,68"/>
+
+    <!-- خط دوم (وسط) -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="3"
+        android:fillColor="#00000000"
+        android:strokeLineCap="round"
+        android:pathData="M62,92 L120,92"/>
+
+    <!-- خط سوم (پایین) -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="3"
+        android:fillColor="#00000000"
+        android:strokeLineCap="round"
+        android:pathData="M62,116 L138,116"/>
+</vector>
