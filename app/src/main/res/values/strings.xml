@@ -32,6 +32,7 @@
     <string name="saved">ذخیره شد</string>
     <string name="cancel">لغو</string>
     <string name="close">بستن</string>
+    <string name="brand_mrt">MRT · JARVIS</string>
 
     <!-- ============ Splash ============ -->
     <string name="splash_brand">FULL OPTION</string>
@@ -109,6 +110,7 @@
     <string name="c_vehicle">خودرو</string>
     <string name="c_can">CAN</string>
     <string name="c_dashboard">داشبورد</string>
+    <string name="c_launcher">منوی اصلی</string>
     <string name="c_clock">ساعت و تاریخ</string>
     <string name="c_display">نمایشگر</string>
     <string name="c_voice">صدا و دستیار</string>
@@ -157,7 +159,7 @@
     <string name="s_launcher_e90">کلاسیک E90</string>
     <string name="s_launcher_idrive">iDrive جدید</string>
     <string name="s_splash_enabled">نمایش صفحه‌ی آغازین</string>
-    <string name="s_splash_duration">مدت صفحه‌ی آغازین</string>
+    <string name="s_splash_duration">مدت صفحه‌ی آغازین (×۱۰۰ms)</string>
     <string name="s_dash_style">سبک داشبورد</string>
     <string name="s_dash_bmw">BMW Live Cockpit</string>
     <string name="s_dash_classic">کلاسیک</string>
