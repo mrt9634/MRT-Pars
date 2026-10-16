@@ -1,4 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/bg_pure"/>
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- پس‌زمینه‌ی مشکی -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/bg_pure"/>
+        </shape>
+    </item>
+
+    <!-- درخشش نارنجی گوشه‌ی پایین-چپ (امضای BMW iDrive) -->
+    <item android:gravity="bottom|start">
+        <shape android:shape="oval">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="400dp"
+                android:startColor="#33FF8A1A"
+                android:endColor="#00000000"/>
+            <size android:width="600dp" android:height="400dp"/>
+        </shape>
+    </item>
+
+    <!-- درخشش آبی ملایم گوشه‌ی بالا-راست -->
+    <item android:gravity="top|end">
+        <shape android:shape="oval">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="350dp"
+                android:startColor="#223FA9F5"
+                android:endColor="#00000000"/>
+            <size android:width="500dp" android:height="350dp"/>
+        </shape>
+    </item>
+</layer-list>
