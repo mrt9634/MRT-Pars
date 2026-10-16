@@ -5,38 +5,47 @@
     android:viewportWidth="200"
     android:viewportHeight="200">
 
-    <!-- ============ سپر بیرونی ============ -->
-    <!-- شکل: پنج‌ضلعی با نوک به پایین (شبیه سپر FULL OPTION) -->
+    <!-- ============ سپر بیرونی با گوشه‌های نرم ============ -->
     <path
         android:strokeColor="#FFFFFFFF"
-        android:strokeWidth="3"
+        android:strokeWidth="3.5"
         android:fillColor="#00000000"
         android:strokeLineJoin="round"
         android:strokeLineCap="round"
-        android:pathData="M100,18 L162,42 L162,110 Q162,150 100,178 Q38,150 38,110 L38,42 Z"/>
+        android:pathData="M100,15
+                          L155,38
+                          L165,50
+                          L165,105
+                          Q165,140 130,162
+                          Q115,172 100,180
+                          Q85,172 70,162
+                          Q35,140 35,105
+                          L35,50
+                          L45,38
+                          Z"/>
 
-    <!-- ============ خطوط داخلی (سبک F) ============ -->
-    <!-- خط اول (بالا) -->
+    <!-- ============ سه خط افقی داخلی ============ -->
+    <!-- خط بالا -->
     <path
         android:strokeColor="#FFFFFFFF"
-        android:strokeWidth="3"
+        android:strokeWidth="3.5"
         android:fillColor="#00000000"
         android:strokeLineCap="round"
-        android:pathData="M62,68 L138,68"/>
+        android:pathData="M60,66 L140,66"/>
 
-    <!-- خط دوم (وسط) -->
+    <!-- خط وسط (کوتاه‌تر) -->
     <path
         android:strokeColor="#FFFFFFFF"
-        android:strokeWidth="3"
+        android:strokeWidth="3.5"
         android:fillColor="#00000000"
         android:strokeLineCap="round"
-        android:pathData="M62,92 L120,92"/>
+        android:pathData="M60,90 L118,90"/>
 
-    <!-- خط سوم (پایین) -->
+    <!-- خط پایین (بلندتر از وسط) -->
     <path
         android:strokeColor="#FFFFFFFF"
-        android:strokeWidth="3"
+        android:strokeWidth="3.5"
         android:fillColor="#00000000"
         android:strokeLineCap="round"
-        android:pathData="M62,116 L138,116"/>
+        android:pathData="M60,114 L140,114"/>
 </vector>
