@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">MRT1 داشبورد</string>
+
+    <!-- ============ عمومی ============ -->
     <string name="speed">سرعت</string>
     <string name="kmh">کیلومتر/ساعت</string>
     <string name="mph">مایل/ساعت</string>
@@ -24,33 +26,84 @@
     <string name="dash">--</string>
     <string name="online">متصل</string>
     <string name="offline">قطع</string>
-    <string name="can_connected">متصل</string>
-    <string name="can_connecting">CAN: در حال اتصال…</string>
-    <string name="can_disconnected">CAN DISCONNECTED</string>
-    <string name="can_not_available">CAN: در دسترس نیست</string>
-    <string name="can_reason_none">هیچ ارائه‌دهنده CAN قابل دسترسی یافت نشد</string>
-    <string name="can_reason_no_data">هیچ منبعی داده واقعی ارسال نکرد؛ در انتظار پیام‌های سازنده</string>
-    <string name="safe_mode_reason">حالت امن پس از چند کرش پیاپی – CAN غیرفعال شد</string>
-    <string name="demo_banner">حالت نمایشی – داده‌ها واقعی نیستند</string>
-    <string name="safe_banner">حالت امن فعال است (تنظیمات ← سیستم ← خروج از حالت امن)</string>
-    <string name="listening">در حال گوش دادن…</string>
-    <string name="tap_to_talk">برای صحبت لمس کنید</string>
-    <string name="mic_ok">میکروفون: آماده</string>
-    <string name="mic_unavailable">میکروفون: در دسترس نیست</string>
-    <string name="voice_out_ok">خروجی صدا: آماده</string>
-    <string name="voice_out_unavailable">خروجی صدا: در دسترس نیست</string>
-    <string name="ai_online">AI: آنلاین</string>
-    <string name="ai_offline">AI: آفلاین</string>
-    <string name="settings">تنظیمات</string>
-    <string name="diagnostics">عیب‌یابی</string>
+    <string name="ok">باشه</string>
+    <string name="back">بازگشت</string>
     <string name="save">ذخیره</string>
     <string name="saved">ذخیره شد</string>
-    <string name="back">بازگشت</string>
+    <string name="cancel">لغو</string>
+    <string name="close">بستن</string>
+
+    <!-- ============ Splash ============ -->
+    <string name="splash_brand">FULL OPTION</string>
+    <string name="splash_sub">CAR ELECTRIC ACCESSORIES</string>
+
+    <!-- ============ Hub (منوی اصلی) ============ -->
+    <string name="hub_media">رسانه</string>
+    <string name="hub_comm">ارتباطات</string>
+    <string name="hub_nav">ناوبری</string>
+    <string name="hub_connected">اتصال آنلاین</string>
+    <string name="hub_vehicle">خودروی من</string>
+    <string name="hub_notifications">اعلان‌ها</string>
+    <string name="hub_hint">برای انتخاب، لمس کنید یا از کلیدهای فرمان استفاده کنید</string>
+    <string name="hub_no_notif">اعلان جدیدی نیست</string>
+    <string name="hub_placeholder">این بخش هنوز آماده نیست</string>
+
+    <!-- ============ Dashboard (BMW Live Cockpit) ============ -->
+    <string name="dash_speed">سرعت</string>
+    <string name="dash_rpm">دور موتور</string>
+    <string name="dash_gear">دنده</string>
+    <string name="dash_mode_comfort">COMFORT</string>
+    <string name="dash_mode_eco">ECO PRO</string>
+    <string name="dash_mode_sport">SPORT</string>
+    <string name="dash_range">برد</string>
+    <string name="dash_consumption_avg">مصرف میانگین</string>
+    <string name="dash_speed_limit">محدودیت سرعت</string>
+    <string name="unit_kmh">km/h</string>
+    <string name="unit_mph">mph</string>
+    <string name="unit_rpm">×1000 RPM</string>
+    <string name="unit_c">°C</string>
+    <string name="unit_f">°F</string>
+    <string name="unit_km">km</string>
+    <string name="unit_l100">L/100</string>
+
+    <!-- ============ GPS / Navigation ============ -->
+    <string name="gps_title">ناوبری</string>
+    <string name="gps_search_hint">جستجوی مقصد…</string>
+    <string name="gps_no_map">نقشه در دسترس نیست</string>
+    <string name="gps_no_location">موقعیت یافت نشد</string>
+    <string name="gps_open_maps">باز کردن در نقشه</string>
+    <string name="gps_locating">در حال یافتن موقعیت…</string>
+    <string name="gps_no_app">هیچ برنامه‌ی نقشه‌ای نصب نیست</string>
+
+    <!-- ============ Music Player ============ -->
+    <string name="music_title">فهرست فایل</string>
+    <string name="music_loading">در حال جستجوی فایل‌های موسیقی…</string>
+    <string name="music_no_usb">هیچ فلش USB وصل نیست</string>
+    <string name="music_no_tracks">هیچ فایل موسیقی یافت نشد</string>
+    <string name="music_scan_error">خطا در خواندن فلش</string>
+    <string name="music_unknown_artist">هنرمند نامشخص</string>
+    <string name="music_unknown_album">آلبوم نامشخص</string>
+    <string name="music_tracks_count">%1$d آهنگ</string>
+    <string name="music_play">پخش</string>
+    <string name="music_pause">توقف</string>
+    <string name="music_next">بعدی</string>
+    <string name="music_prev">قبلی</string>
+    <string name="music_shuffle">پخش تصادفی</string>
+    <string name="music_repeat">تکرار</string>
+    <string name="music_repeat_all">تکرار همه</string>
+    <string name="music_repeat_one">تکرار یکی</string>
+    <string name="music_repeat_off">بدون تکرار</string>
+    <string name="music_equalizer">اکولایزر</string>
+    <string name="music_permission_needed">برای خواندن فلش، اجازه‌ی دسترسی به فایل‌ها لازم است</string>
+    <string name="music_grant_permission">دادن اجازه</string>
+
+    <!-- ============ Settings ============ -->
+    <string name="settings">تنظیمات</string>
+    <string name="diagnostics">عیب‌یابی</string>
 
     <!-- First launch -->
     <string name="init_title">راه‌اندازی اولیه MRT1</string>
     <string name="init_done_reboot">پیکربندی اولیه با موفقیت انجام شد. لطفاً یک‌بار مانیتور را خاموش و روشن (Reboot) کنید.</string>
-    <string name="ok">باشه</string>
 
     <!-- Settings categories -->
     <string name="c_vehicle">خودرو</string>
@@ -98,6 +151,17 @@
     <string name="s_redline">خط قرمز دور موتور</string>
     <string name="s_speed_max">حداکثر عدد سرعت‌سنج</string>
 
+    <!-- Launcher & Splash settings -->
+    <string name="s_launcher_style">سبک منوی اصلی</string>
+    <string name="s_launcher_cards">کارتی (BMW iDrive)</string>
+    <string name="s_launcher_e90">کلاسیک E90</string>
+    <string name="s_launcher_idrive">iDrive جدید</string>
+    <string name="s_splash_enabled">نمایش صفحه‌ی آغازین</string>
+    <string name="s_splash_duration">مدت صفحه‌ی آغازین</string>
+    <string name="s_dash_style">سبک داشبورد</string>
+    <string name="s_dash_bmw">BMW Live Cockpit</string>
+    <string name="s_dash_classic">کلاسیک</string>
+
     <string name="s_clock24">ساعت ۲۴ ساعته</string>
     <string name="s_analog">ساعت عقربه‌ای</string>
     <string name="s_show_date">نمایش تاریخ</string>
@@ -112,10 +176,14 @@
     <string name="s_tts">پاسخ صوتی</string>
     <string name="s_wake">کلمه بیدارباش MRT (آزمایشی – نیاز به موتور آفلاین)</string>
     <string name="s_open_tts">تنظیمات موتور صدای اندروید</string>
+    <string name="s_offline_stt">تشخیص گفتار آفلاین فارسی</string>
+    <string name="s_offline_stt_desc">بدون اینترنت، دستورات خودرو و مدیا را تشخیص می‌دهد</string>
 
     <string name="s_ai_enable">فعال‌سازی OpenAI</string>
     <string name="s_api_key">کلید OpenAI (رمزنگاری‌شده ذخیره می‌شود)</string>
     <string name="s_model">مدل</string>
+    <string name="s_base_url">آدرس سرور (Base URL)</string>
+    <string name="s_base_url_hint">برای استفاده از پروکسی، آدرس را تغییر دهید</string>
 
     <string name="s_vol_step">گام تغییر صدا</string>
     <string name="s_open_sound">تنظیمات صدای اندروید</string>
@@ -139,6 +207,30 @@
     <string name="about_text">MRT1 – داشبورد بومی اندروید برای پژو پارس ۱۳۹۲/۱۳۹۳.\nبدون مرورگر و WebView، بدون داده ساختگی.\nفریمور MCU، تنظیمات CAN کارخانه، دوربین و رادیو کارخانه هرگز تغییر نمی‌کنند. نیازی به روت نیست.</string>
     <string name="version">نسخه</string>
 
+    <!-- ============ CAN status ============ -->
+    <string name="can_connected">متصل</string>
+    <string name="can_connecting">CAN: در حال اتصال…</string>
+    <string name="can_disconnected">CAN DISCONNECTED</string>
+    <string name="can_not_available">CAN: در دسترس نیست</string>
+    <string name="can_reason_none">هیچ ارائه‌دهنده CAN قابل دسترسی یافت نشد</string>
+    <string name="can_reason_no_data">هیچ منبعی داده واقعی ارسال نکرد؛ در انتظار پیام‌های سازنده</string>
+
+    <!-- ============ Safe mode / Demo ============ -->
+    <string name="safe_mode_reason">حالت امن پس از چند کرش پیاپی – CAN غیرفعال شد</string>
+    <string name="demo_banner">حالت نمایشی – داده‌ها واقعی نیستند</string>
+    <string name="safe_banner">حالت امن فعال است (تنظیمات ← سیستم ← خروج از حالت امن)</string>
+
+    <!-- ============ Voice states ============ -->
+    <string name="listening">در حال گوش دادن…</string>
+    <string name="tap_to_talk">برای صحبت لمس کنید</string>
+    <string name="mic_ok">میکروفون: آماده</string>
+    <string name="mic_unavailable">میکروفون: در دسترس نیست</string>
+    <string name="voice_out_ok">خروجی صدا: آماده</string>
+    <string name="voice_out_unavailable">خروجی صدا: در دسترس نیست</string>
+    <string name="ai_online">AI: آنلاین</string>
+    <string name="ai_offline">AI: آفلاین</string>
+
+    <!-- ============ پاسخ‌های دستیار ============ -->
     <string name="r_ok">باشه.</string>
     <string name="r_speed">سرعت خودرو %1$s کیلومتر بر ساعت است.</string>
     <string name="r_rpm">دور موتور %1$s است.</string>
@@ -153,5 +245,11 @@
     <string name="r_ai_error">خطا در ارتباط با هوش مصنوعی.</string>
     <string name="r_not_understood">متوجه نشدم.</string>
     <string name="r_no_stt">سرویس تشخیص گفتار روی دستگاه نصب نیست.</string>
+    <string name="r_opening_music">باز کردن پخش‌کننده موسیقی…</string>
+    <string name="r_opening_nav">باز کردن ناوبری…</string>
+    <string name="r_opening_dash">باز کردن داشبورد…</string>
+    <string name="r_opening_settings">باز کردن تنظیمات…</string>
+    <string name="r_opening_hub">بازگشت به منوی اصلی…</string>
+
     <string name="ai_system_prompt">تو دستیار خودرو به نام MRT هستی. کوتاه، مودبانه و فقط به فارسی پاسخ بده. پاسخ‌ها برای راننده خوانده می‌شوند، پس حداکثر دو جمله.</string>
 </resources>
