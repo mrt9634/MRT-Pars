@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="horizontal" android:layoutDirection="rtl" android:padding="12dp">
+
+    <ScrollView android:layout_width="0dp" android:layout_weight="0.32" android:layout_height="match_parent"
+        android:background="@drawable/glass" android:padding="8dp">
+        <LinearLayout android:id="@+id/cats" android:orientation="vertical"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    </ScrollView>
+
+    <ScrollView android:id="@+id/contentScroll" android:layout_width="0dp" android:layout_weight="0.68"
+        android:layout_height="match_parent" android:layout_marginStart="12dp"
+        android:background="@drawable/glass" android:padding="16dp">
+        <LinearLayout android:id="@+id/root" android:orientation="vertical"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,30 @@
+package com.mrt.jarvis.vehicle
+
+/** Every field is nullable: null = not provided by any real source => UI shows "--". */
+data class VehicleData(
+    val speedKmh: Float? = null,
+    val rpm: Float? = null,
+    val engineTempC: Float? = null,
+    val fuelPercent: Float? = null,
+    val batteryVolt: Float? = null,
+    val outsideTempC: Float? = null,
+    val tripKm: Float? = null,
+    val odometerKm: Float? = null,
+    val avgSpeed: Float? = null,
+    val instantConsumption: Float? = null,
+    val avgConsumption: Float? = null,
+    val gear: String? = null,
+    val doorOpen: Boolean? = null,
+    val trunkOpen: Boolean? = null,
+    val hoodOpen: Boolean? = null,
+    val seatBelt: Boolean? = null,
+    val lights: Boolean? = null,
+    val highBeam: Boolean? = null,
+    val turnLeft: Boolean? = null,
+    val turnRight: Boolean? = null,
+    val parkingBrake: Boolean? = null,
+    val brake: Boolean? = null,
+    val reverse: Boolean? = null,
+    val engineRunning: Boolean? = null,
+    val isDemo: Boolean = false,
+)

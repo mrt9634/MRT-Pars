@@ -1,0 +1,157 @@
+<resources>
+    <string name="app_name">MRT1 داشبورد</string>
+    <string name="speed">سرعت</string>
+    <string name="kmh">کیلومتر/ساعت</string>
+    <string name="mph">مایل/ساعت</string>
+    <string name="rpm">دور موتور</string>
+    <string name="rpm_unit">×۱۰۰۰ RPM</string>
+    <string name="engine_temp">دمای موتور</string>
+    <string name="fuel">سوخت</string>
+    <string name="battery">باتری</string>
+    <string name="outside_temp">دمای بیرون</string>
+    <string name="trip">مسافت</string>
+    <string name="odometer">کیلومترشمار</string>
+    <string name="avg_speed">سرعت میانگین</string>
+    <string name="consumption">مصرف</string>
+    <string name="gear">دنده</string>
+    <string name="can_status">وضعیت CAN</string>
+    <string name="assistant">دستیار MRT</string>
+    <string name="internet">اینترنت</string>
+    <string name="microphone">میکروفون</string>
+    <string name="gps">GPS</string>
+    <string name="bluetooth">بلوتوث</string>
+    <string name="unavailable">نامشخص</string>
+    <string name="dash">--</string>
+    <string name="online">متصل</string>
+    <string name="offline">قطع</string>
+    <string name="can_connected">متصل</string>
+    <string name="can_connecting">CAN: در حال اتصال…</string>
+    <string name="can_disconnected">CAN DISCONNECTED</string>
+    <string name="can_not_available">CAN: در دسترس نیست</string>
+    <string name="can_reason_none">هیچ ارائه‌دهنده CAN قابل دسترسی یافت نشد</string>
+    <string name="can_reason_no_data">هیچ منبعی داده واقعی ارسال نکرد؛ در انتظار پیام‌های سازنده</string>
+    <string name="safe_mode_reason">حالت امن پس از چند کرش پیاپی – CAN غیرفعال شد</string>
+    <string name="demo_banner">حالت نمایشی – داده‌ها واقعی نیستند</string>
+    <string name="safe_banner">حالت امن فعال است (تنظیمات ← سیستم ← خروج از حالت امن)</string>
+    <string name="listening">در حال گوش دادن…</string>
+    <string name="tap_to_talk">برای صحبت لمس کنید</string>
+    <string name="mic_ok">میکروفون: آماده</string>
+    <string name="mic_unavailable">میکروفون: در دسترس نیست</string>
+    <string name="voice_out_ok">خروجی صدا: آماده</string>
+    <string name="voice_out_unavailable">خروجی صدا: در دسترس نیست</string>
+    <string name="ai_online">AI: آنلاین</string>
+    <string name="ai_offline">AI: آفلاین</string>
+    <string name="settings">تنظیمات</string>
+    <string name="diagnostics">عیب‌یابی</string>
+    <string name="save">ذخیره</string>
+    <string name="saved">ذخیره شد</string>
+    <string name="back">بازگشت</string>
+
+    <!-- First launch -->
+    <string name="init_title">راه‌اندازی اولیه MRT1</string>
+    <string name="init_done_reboot">پیکربندی اولیه با موفقیت انجام شد. لطفاً یک‌بار مانیتور را خاموش و روشن (Reboot) کنید.</string>
+    <string name="ok">باشه</string>
+
+    <!-- Settings categories -->
+    <string name="c_vehicle">خودرو</string>
+    <string name="c_can">CAN</string>
+    <string name="c_dashboard">داشبورد</string>
+    <string name="c_clock">ساعت و تاریخ</string>
+    <string name="c_display">نمایشگر</string>
+    <string name="c_voice">صدا و دستیار</string>
+    <string name="c_ai">هوش مصنوعی / OpenAI</string>
+    <string name="c_media">رسانه</string>
+    <string name="c_swc">کلیدهای فرمان</string>
+    <string name="c_diag">عیب‌یابی</string>
+    <string name="c_system">سیستم</string>
+    <string name="c_about">درباره MRT1</string>
+
+    <string name="s_vehicle_model">پروفایل خودرو</string>
+    <string name="s_speed_unit">واحد سرعت</string>
+    <string name="s_temp_unit">واحد دما</string>
+    <string name="u_kmh">کیلومتر بر ساعت</string>
+    <string name="u_mph">مایل بر ساعت</string>
+    <string name="u_c">سانتی‌گراد</string>
+    <string name="u_f">فارنهایت</string>
+    <string name="s_vehicle_note">MRT1 هیچ تنظیمی از خودرو یا سیستم کارخانه را تغییر نمی‌دهد.</string>
+
+    <string name="s_can_provider">ارائه‌دهنده CAN</string>
+    <string name="s_can_auto">خودکار (پیشنهادی)</string>
+    <string name="s_can_action">اکشن Broadcast سازنده (اختیاری)</string>
+    <string name="s_can_readonly">CAN فقط در حالت خواندنی کار می‌کند. هیچ فرمانی به خودرو ارسال نمی‌شود.</string>
+    <string name="s_can_rescan">جست‌وجوی دوباره منبع CAN</string>
+    <string name="s_can_monitor">مانیتور خام CAN و لاگ فریم‌ها</string>
+    <string name="s_can_clear_frames">پاک کردن لاگ فریم‌ها</string>
+    <string name="s_demo">حالت نمایشی (فقط برای تست)</string>
+
+    <string name="s_layout">چیدمان داشبورد</string>
+    <string name="l_standard">استاندارد</string>
+    <string name="l_left">اطلاعات سمت چپ</string>
+    <string name="l_right">اطلاعات سمت راست</string>
+    <string name="l_custom">سفارشی</string>
+    <string name="s_custom_side">سمت پنل سفارشی</string>
+    <string name="side_left">چپ</string>
+    <string name="side_right">راست</string>
+    <string name="s_info_clock">ساعت در پنل</string>
+    <string name="s_info_date">تاریخ و روز در پنل</string>
+    <string name="s_info_vehicle">اطلاعات خودرو در پنل</string>
+    <string name="s_redline">خط قرمز دور موتور</string>
+    <string name="s_speed_max">حداکثر عدد سرعت‌سنج</string>
+
+    <string name="s_clock24">ساعت ۲۴ ساعته</string>
+    <string name="s_analog">ساعت عقربه‌ای</string>
+    <string name="s_show_date">نمایش تاریخ</string>
+    <string name="s_show_day">نمایش روز هفته</string>
+    <string name="s_clock_note">ساعت، تاریخ و منطقه زمانی همیشه از سیستم اندروید خوانده می‌شود و بدون اینترنت کار می‌کند.</string>
+    <string name="s_open_date_settings">تنظیم تاریخ و ساعت اندروید</string>
+
+    <string name="s_fullscreen">تمام صفحه</string>
+    <string name="s_keep_on">روشن ماندن صفحه</string>
+    <string name="s_brightness">روشنایی برنامه</string>
+
+    <string name="s_tts">پاسخ صوتی</string>
+    <string name="s_wake">کلمه بیدارباش MRT (آزمایشی – نیاز به موتور آفلاین)</string>
+    <string name="s_open_tts">تنظیمات موتور صدای اندروید</string>
+
+    <string name="s_ai_enable">فعال‌سازی OpenAI</string>
+    <string name="s_api_key">کلید OpenAI (رمزنگاری‌شده ذخیره می‌شود)</string>
+    <string name="s_model">مدل</string>
+
+    <string name="s_vol_step">گام تغییر صدا</string>
+    <string name="s_open_sound">تنظیمات صدای اندروید</string>
+
+    <string name="s_swc_voice">کلید دستیار صوتی روی فرمان</string>
+    <string name="s_swc_learn">یادگیری کلید: بعد از لمس، کلید فرمان را بزنید</string>
+    <string name="s_swc_wait">منتظر فشردن کلید فرمان…</string>
+    <string name="s_swc_note">بقیه کلیدها (صدا، آهنگ بعدی/قبلی، تماس) مستقیماً به سیستم کارخانه می‌روند و MRT1 آن‌ها را نمی‌گیرد.</string>
+
+    <string name="s_open_diag">باز کردن صفحه عیب‌یابی</string>
+    <string name="s_program_log">لاگ برنامه</string>
+    <string name="s_clear_log">پاک کردن لاگ MRT1</string>
+    <string name="s_log_cleared">لاگ MRT1 پاک شد</string>
+
+    <string name="s_start_boot">اجرا پس از روشن شدن</string>
+    <string name="s_home_settings">انتخاب MRT1 به عنوان صفحه اصلی (Home)</string>
+    <string name="s_rerun_profile">شناسایی دوباره سخت‌افزار</string>
+    <string name="s_exit_safe">خروج از حالت امن</string>
+    <string name="s_profile">پروفایل سخت‌افزار</string>
+
+    <string name="about_text">MRT1 – داشبورد بومی اندروید برای پژو پارس ۱۳۹۲/۱۳۹۳.\nبدون مرورگر و WebView، بدون داده ساختگی.\nفریمور MCU، تنظیمات CAN کارخانه، دوربین و رادیو کارخانه هرگز تغییر نمی‌کنند. نیازی به روت نیست.</string>
+    <string name="version">نسخه</string>
+
+    <string name="r_ok">باشه.</string>
+    <string name="r_speed">سرعت خودرو %1$s کیلومتر بر ساعت است.</string>
+    <string name="r_rpm">دور موتور %1$s است.</string>
+    <string name="r_temp">دمای موتور %1$s درجه است.</string>
+    <string name="r_batt">ولتاژ باتری %1$s ولت است.</string>
+    <string name="r_fuel">سوخت %1$s درصد است.</string>
+    <string name="r_unavail">این اطلاعات از خودرو در دسترس نیست.</string>
+    <string name="r_can_ok">CAN متصل است. ارائه‌دهنده: %1$s</string>
+    <string name="r_can_no">CAN در دسترس نیست.</string>
+    <string name="r_no_internet">اینترنت در دسترس نیست. فقط فرمان‌های خودرو کار می‌کنند.</string>
+    <string name="r_no_ai">دستیار ابری غیرفعال است یا کلید تنظیم نشده.</string>
+    <string name="r_ai_error">خطا در ارتباط با هوش مصنوعی.</string>
+    <string name="r_not_understood">متوجه نشدم.</string>
+    <string name="r_no_stt">سرویس تشخیص گفتار روی دستگاه نصب نیست.</string>
+    <string name="ai_system_prompt">تو دستیار خودرو به نام MRT هستی. کوتاه، مودبانه و فقط به فارسی پاسخ بده. پاسخ‌ها برای راننده خوانده می‌شوند، پس حداکثر دو جمله.</string>
+</resources>

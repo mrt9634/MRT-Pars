@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:padding="12dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:layoutDirection="rtl">
+        <Button android:id="@+id/btnBack" android:text="@string/back"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <Button android:id="@+id/btnClearFrames" android:text="@string/s_can_clear_frames"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp"/>
+        <Button android:id="@+id/btnClearLog" android:text="@string/s_clear_log"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp"/>
+    </LinearLayout>
+    <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
+        android:layout_marginTop="8dp" android:background="@drawable/glass">
+        <TextView android:id="@+id/tvDiag" android:padding="16dp" android:textColor="@color/text"
+            android:typeface="monospace" android:textSize="12sp" android:textIsSelectable="true"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    </ScrollView>
+</LinearLayout>
