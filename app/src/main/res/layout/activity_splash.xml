@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/splash_bg">
+
+    <!-- ============ محتوای مرکزی ============ -->
+    <LinearLayout
+        android:id="@+id/splashContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:alpha="0">
+
+        <!-- لوگو -->
+        <ImageView
+            android:id="@+id/ivSplashLogo"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@drawable/ic_full_option"
+            android:contentDescription="@string/splash_brand"/>
+
+        <!-- نام برند -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="@string/splash_brand"
+            android:textColor="@color/splash_text"
+            android:textSize="30sp"
+            android:letterSpacing="0.45"
+            android:fontFamily="sans-serif-light"/>
+
+        <!-- زیرنویس برند -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/splash_sub"
+            android:textColor="@color/splash_text_dim"
+            android:textSize="11sp"
+            android:letterSpacing="0.25"
+            android:fontFamily="sans-serif"/>
+    </LinearLayout>
+
+    <!-- ============ نسخه‌ی برنامه (پایین چپ) ============ -->
+    <TextView
+        android:id="@+id/tvSplashVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="20dp"
+        android:textColor="@color/splash_version"
+        android:textSize="11sp"
+        android:fontFamily="sans-serif-light"/>
+
+    <!-- ============ نشانگر بارگذاری (پایین وسط) ============ -->
+    <ProgressBar
+        android:id="@+id/pbSplash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="55dp"
+        android:indeterminateTint="@color/accent"/>
+</FrameLayout>
