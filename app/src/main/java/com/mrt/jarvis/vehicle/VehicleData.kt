@@ -1,6 +1,5 @@
 package com.mrt.jarvis.vehicle
 
-/** Every field is nullable: null = not provided by any real source => UI shows "--". */
 data class VehicleData(
     val speedKmh: Float? = null,
     val rpm: Float? = null,
@@ -27,4 +26,8 @@ data class VehicleData(
     val reverse: Boolean? = null,
     val engineRunning: Boolean? = null,
     val isDemo: Boolean = false,
+    
+    // --- فاز ۴: فیلدهای جدید برای BMW Live Cockpit ---
+    val speedLimit: Int? = null,
+    val driveMode: String? = null // COMFORT, SPORT, ECO
 )
