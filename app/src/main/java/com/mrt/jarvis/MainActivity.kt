@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
     private val vm: DashboardViewModel by viewModels()
     private lateinit var prefs: AppPrefs
     
+    // ویوهای جدید داشبورد BMW
     private lateinit var gSpeed: BmwGaugeView
     private lateinit var gRpm: BmwGaugeView
     private lateinit var gFuel: CornerGaugeView
@@ -57,13 +58,16 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
     private val nf = NumberFormat.getInstance(fa).apply { maximumFractionDigits = 0 }
     private var last = VehicleData()
 
-    private val timeRx = object : BroadcastReceiver() { override fun onReceive(c: Context, i: Intent) = updateClock() }
+    private val timeRx = object : BroadcastReceiver() { 
+        override fun onReceive(c: Context, i: Intent) = updateClock() 
+    }
 
     override fun onCreate(b: Bundle?) {
-        super.onCreate(b); setContentView(R.layout.activity_main)
+        super.onCreate(b)
+        setContentView(R.layout.activity_main)
         prefs = AppPrefs(this)
         
-        // Bind Views
+        // پیدا کردن ویوها از XML جدید
         gSpeed = findViewById(R.id.gSpeed)
         gRpm = findViewById(R.id.gRpm)
         gFuel = findViewById(R.id.gFuel)
@@ -74,35 +78,46 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         tvGear = findViewById(R.id.tvGear)
         tvAssistant = findViewById(R.id.tvAssistant)
 
-        // Configure RPM Gauge
+        // تنظیمات گیج دور موتور
         gRpm.apply {
             maxValue = 8000f
             majorStep = 1000f
-            accentColor = 0xFFE5484D.toInt() // Red for RPM in BMW
+            accentColor = 0xFFE5484D.toInt() // رنگ قرمز برای دور موتور BMW
             numberFormat = { (it / 1000f).toInt().toString() }
         }
         
-        // Configure Fuel & Temp
+        // تنظیمات بنزین و دمای آب
         gFuel.side = CornerGaugeView.Side.LEFT
-        gFuel.startLabel = "E"; gFuel.endLabel = "F"
+        gFuel.startLabel = "E"
+        gFuel.endLabel = "F"
         
         gTemp.side = CornerGaugeView.Side.RIGHT
-        gTemp.startLabel = "C"; gTemp.endLabel = "H"
+        gTemp.startLabel = "C"
+        gTemp.endLabel = "H"
 
+        // دکمه‌ها
         findViewById<View>(R.id.btnSettings).setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
         findViewById<View>(R.id.btnSettings).setOnLongClickListener {
-            startActivity(Intent(this, DiagnosticsActivity::class.java)); true
+            startActivity(Intent(this, DiagnosticsActivity::class.java)
+            true
         }
         findViewById<View>(R.id.btnMic).setOnClickListener { startVoice() }
         
-        assistant = AssistantController(this, lifecycleScope, { voice }) { tvAssistant.text = it; tvAssistant.visibility = View.VISIBLE }
+        assistant = AssistantController(this, lifecycleScope, { voice }) { 
+            tvAssistant.text = it
+            tvAssistant.visibility = View.VISIBLE 
+        }
 
-        vm.vehicle.observe(this) { v -> last = v; safe("bind") { bind(v) } }
+        vm.vehicle.observe(this) { v -> 
+            last = v
+            safe("bind") { bind(v) } 
+        }
         
-        // Init Voice
+        // راه‌اندازی صدا
         h.postDelayed({ if (voice == null) voice = VoiceManager(this, this) }, 4000)
+        
         if (!HardwareProfiler.isDone(this)) Thread {
             runCatching { HardwareProfiler.run(applicationContext) }
         }.apply { priority = Thread.MIN_PRIORITY }.start()
@@ -112,13 +127,13 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         val mph = prefs.speedUnit == "mph"
         val speedVal = v.speedKmh?.let { if (mph) it * 0.621f else it }
         
-        // Update Gauges
+        // آپدیت گیج‌ها
         gSpeed.setValue(speedVal)
         gRpm.setValue(v.rpm)
         gFuel.setValue(v.fuelPercent)
         gTemp.setValue(v.engineTempC)
         
-        // Update Center
+        // آپدیت وسط صفحه
         tvSpeedBig.text = speedVal?.let { nf.format(it) } ?: getString(R.string.dash)
         tvGear.text = v.gear ?: getString(R.string.dash)
         
@@ -140,7 +155,8 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
 
     private fun startVoice() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), 1); return 
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), 1)
+            return 
         }
         if (voice == null) voice = VoiceManager(this, this)
         safe("listen") { voice?.listen() }
@@ -153,21 +169,41 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
 
     override fun onKeyDown(code: Int, e: KeyEvent): Boolean {
         if (code == prefs.swcVoiceKey || code == KeyEvent.KEYCODE_VOICE_ASSIST || code == KeyEvent.KEYCODE_SEARCH) {
-            startVoice(); return true 
+            startVoice()
+            return true 
         }
         return super.onKeyDown(code, e)
     }
 
-    override fun onListening() { tvAssistant.setText(R.string.listening) }
-    override fun onResult(text: String) { tvAssistant.text = text; safe("assistant") { assistant.handle(text) } }
-    override fun onError(code: Int) { tvAssistant.setText(if (code == -1) R.string.r_no_stt else R.string.r_not_understood) }
-    override fun onTtsReady(persian: Boolean) { runOnUiThread { ttsOk = persian; HardwareProfiler.setTts(this, persian) } }
+    override fun onListening() { 
+        tvAssistant.setText(R.string.listening) 
+    }
+    
+    override fun onResult(text: String) { 
+        tvAssistant.text = text
+        safe("assistant") { assistant.handle(text) } 
+    }
+    
+    override fun onError(code: Int) { 
+        tvAssistant.setText(if (code == -1) R.string.r_no_stt else R.string.r_not_understood) 
+    }
+    
+    override fun onTtsReady(persian: Boolean) { 
+        runOnUiThread { 
+            ttsOk = persian
+            HardwareProfiler.setTts(this, persian) 
+        } 
+    }
 
     override fun onResume() {
-        super.onResume(); immersive()
+        super.onResume()
+        immersive()
         registerReceiver(timeRx, IntentFilter().apply {
-            addAction(Intent.ACTION_TIME_TICK); addAction(Intent.ACTION_TIME_CHANGED)
-            addAction(Intent.ACTION_TIMEZONE_CHANGED); addAction(Intent.ACTION_DATE_CHANGED) })
+            addAction(Intent.ACTION_TIME_TICK)
+            addAction(Intent.ACTION_TIME_CHANGED)
+            addAction(Intent.ACTION_TIMEZONE_CHANGED)
+            addAction(Intent.ACTION_DATE_CHANGED) 
+        })
         updateClock()
         
         val br = prefs.brightness
@@ -180,22 +216,37 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
     }
 
     override fun onDestroy() {
-        h.removeCallbacksAndMessages(null); voice?.release(); voice = null; super.onDestroy()
+        h.removeCallbacksAndMessages(null)
+        voice?.release()
+        voice = null
+        super.onDestroy()
     }
 
     override fun onWindowFocusChanged(f: Boolean) {
-        super.onWindowFocusChanged(f); if (f) immersive()
+        super.onWindowFocusChanged(f)
+        if (f) immersive()
     }
 
-    @Suppress("DEPRECATION") private fun immersive() {
+    @Suppress("DEPRECATION") 
+    private fun immersive() {
         if (prefs.keepScreenOn) window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         else window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        if (!prefs.fullscreen) { window.decorView.systemUiVisibility = 0; return }
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or View.SYSTEM_UI_FLAG_FULLSCREEN or
-            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        
+        if (!prefs.fullscreen) { 
+            window.decorView.systemUiVisibility = 0
+            return 
+        }
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or 
+            View.SYSTEM_UI_FLAG_FULLSCREEN or
+            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or 
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
     }
 
     private inline fun safe(where: String, block: () -> Unit) {
-        try { block() } catch (e: Exception) { LogManager.e(this, "UI $where", e) }
+        try { 
+            block() 
+        } catch (e: Exception) { 
+            LogManager.e(this, "UI $where", e) 
+        }
     }
 }
