@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.mrt.jarvis"
-        minSdk 28
+        minSdk 21
         targetSdk 28          // ← تغییر کرد از 29 به 28 برای سازگاری با هد‌یونیت
         versionCode 3
         versionName "2.0.0"
