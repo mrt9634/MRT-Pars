@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
         findViewById<View>(R.id.btnSettings).setOnLongClickListener {
-            startActivity(Intent(this, DiagnosticsActivity::class.java)
+            startActivity(Intent(this, DiagnosticsActivity::class.java))
             true
         }
         findViewById<View>(R.id.btnMic).setOnClickListener { startVoice() }
