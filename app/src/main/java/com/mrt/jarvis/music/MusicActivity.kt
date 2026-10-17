@@ -7,7 +7,6 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
@@ -15,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.mrt.jarvis.R
-import com.mrt.jarvis.settings.AppPrefs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -63,10 +61,15 @@ class MusicActivity : AppCompatActivity() {
         seekBar = findViewById(R.id.seekBar)
         btnPlayPause = findViewById(R.id.btnPlayPause)
 
-        findViewById<View>(R.id.btnBack).setOnClickListener { finish() }
+        val btnBack = findViewById<ImageButton>(R.id.btnBack)
+        val btnPrev = findViewById<ImageButton>(R.id.btnPrev)
+        val btnNext = findViewById<ImageButton>(R.id.btnNext)
+        val tvTopTime = findViewById<TextView>(R.id.tvTopTime)
+
+        btnBack.setOnClickListener { finish() }
         btnPlayPause.setOnClickListener { player.togglePlayPause() }
-        findViewById<View>(R.id.btnNext).setOnClickListener { player.next() }
-        findViewById<View>(R.id.btnPrev).setOnClickListener { player.prev() }
+        btnNext.setOnClickListener { player.next() }
+        btnPrev.setOnClickListener { player.prev() }
 
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(sb: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -81,7 +84,9 @@ class MusicActivity : AppCompatActivity() {
             }
         })
         
-        updateClock()
+        // ساعت بالا
+        val tf = SimpleDateFormat("HH:mm", Locale.US)
+        tvTopTime.text = tf.format(Date())
     }
 
     private fun setupPlayerCallbacks() {
@@ -93,7 +98,10 @@ class MusicActivity : AppCompatActivity() {
         }
 
         player.onPlayStateChanged = { isPlaying ->
-            btnPlayPause.setImageResource(if (isPlaying) android.R.drawable.ic_media_pause else android.R.drawable.ic_media_play)
+            btnPlayPause.setImageResource(
+                if (isPlaying) android.R.drawable.ic_media_pause 
+                else android.R.drawable.ic_media_play
+            )
         }
 
         player.onProgress = { current, total ->
@@ -138,16 +146,9 @@ class MusicActivity : AppCompatActivity() {
                 tvEmpty.text = getString(R.string.music_no_tracks)
             } else {
                 player.setPlaylist(tracks)
-                player.play(0) // شروع خودکار از آهنگ اول
+                player.play(0)
             }
         }
-    }
-
-    private fun updateClock() {
-        val now = Date()
-        val tf = SimpleDateFormat("HH:mm", Locale.US)
-        findViewById<TextView>(R.id.tvTopTime).text = tf.format(now)
-        h.postDelayed({ updateClock() }, 10000)
     }
 
     private fun formatTime(ms: Long): String {
