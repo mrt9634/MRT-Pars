@@ -2,40 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- ============ مجوزها ============ -->
-
-    <!-- شبکه (فقط برای OpenAI در حالت آنلاین) -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
-    <!-- صدا (میکروفون برای دستیار) -->
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-
-    <!-- بوت خودکار -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-
-    <!-- GPS (صفحه‌ی ناوبری) -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
-    <!-- بلوتوث (تماس) -->
-    <uses-permission android:name="android.permission.BLUETOOTH"
-        android:maxSdkVersion="30"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"
-        tools:targetApi="s"/>
-
-    <!-- فلش USB / موسیقی (اندروید ۱۲ و پایین‌تر) -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32"/>
-
-    <!-- موسیقی (اندروید ۱۳+) -->
-    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"
-        tools:targetApi="tiramisu"/>
-
-    <!-- پنجره روی برنامه‌های دیگر (اختیاری - برای auto-start روی برخی هد‌یونیت‌ها) -->
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" tools:targetApi="s"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" tools:targetApi="tiramisu"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
-    <!-- ============ سرویس‌های صوتی ============ -->
     <queries>
         <intent><action android:name="android.speech.RecognitionService"/></intent>
         <intent><action android:name="android.intent.action.TTS_SERVICE"/></intent>
@@ -49,13 +27,11 @@
         </intent>
     </queries>
 
-    <!-- ============ ویژگی‌های سخت‌افزاری (اختیاری) ============ -->
     <uses-feature android:name="android.hardware.usb.host" android:required="false"/>
     <uses-feature android:name="android.hardware.microphone" android:required="false"/>
     <uses-feature android:name="android.hardware.location.gps" android:required="false"/>
     <uses-feature android:name="android.hardware.bluetooth" android:required="false"/>
 
-    <!-- ============ اپلیکیشن ============ -->
     <application
         android:name=".MrtApp"
         android:label="@string/app_name"
@@ -67,7 +43,7 @@
         android:allowBackup="false"
         android:hardwareAccelerated="true">
 
-        <!-- ============ Splash — نقطه‌ی ورود ============ -->
+        <!-- Splash -->
         <activity
             android:name=".splash.SplashActivity"
             android:exported="true"
@@ -81,22 +57,15 @@
             </intent-filter>
         </activity>
 
-        <!-- ============ Hub — Launcher / Home ============ -->
+        <!-- Hub (بدون HOME برای نصب راحت) -->
         <activity
             android:name=".hub.HubActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="sensorLandscape"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|density">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.HOME"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|density" />
 
-        <!-- ============ Dashboard (BMW Live Cockpit) ============ -->
-        <!-- فعلاً همان MainActivity — در فاز ۴ بازنویسی می‌شود -->
+        <!-- Dashboard -->
         <activity
             android:name=".MainActivity"
             android:exported="false"
@@ -104,21 +73,21 @@
             android:screenOrientation="sensorLandscape"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|density"/>
 
-        <!-- ============ Settings ============ -->
+        <!-- Settings -->
         <activity
             android:name=".settings.SettingsActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|density"/>
 
-        <!-- ============ Diagnostics ============ -->
+        <!-- Diagnostics -->
         <activity
             android:name=".diagnostics.DiagnosticsActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|density"/>
 
-        <!-- ============ Boot Receiver ============ -->
+        <!-- Boot Receiver -->
         <receiver android:name=".boot.BootReceiver" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
