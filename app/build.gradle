@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId "com.mrt.jarvis"
         minSdk 28
-        targetSdk 29          // Android 10 head unit: allows boot auto-start of the Activity
+        targetSdk 28          // ← تغییر کرد از 29 به 28 برای سازگاری با هد‌یونیت
         versionCode 3
         versionName "2.0.0"
     }
@@ -48,7 +48,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.activity:activity-ktx:1.8.2'
 
-    // چیدمان و لیست‌ها (برای Hub، Music، Settings)
+    // چیدمان و لیست‌ها
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'androidx.fragment:fragment-ktx:1.6.2'
@@ -64,7 +64,7 @@ dependencies {
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
 
-    // --- فاز ۸: تشخیص گفتار آفلاین فارسی (فعال‌سازی در فاز ۸) ---
+    // --- فاز ۸: تشخیص گفتار آفلاین فارسی (فعلاً کامنت) ---
     // implementation 'com.alphacephei:vosk-android:0.3.47'
     // implementation 'net.java.dev.jna:jna:5.13.0@aar'
 }
