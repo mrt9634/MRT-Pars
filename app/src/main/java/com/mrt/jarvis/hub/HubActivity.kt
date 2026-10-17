@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mrt.jarvis.MainActivity
 import com.mrt.jarvis.R
+import com.mrt.jarvis.music.MusicActivity
 import com.mrt.jarvis.settings.SettingsActivity
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -131,7 +132,9 @@ class HubActivity : AppCompatActivity() {
 
     private fun openCard(card: HubCard) {
         when (card.action) {
-            HubAction.OpenMusic -> placeholder(card)
+            HubAction.OpenMusic -> {
+                startActivity(Intent(this, MusicActivity::class.java))
+            }
             HubAction.OpenNavigation -> placeholder(card)
             HubAction.OpenDashboard ->
                 startActivity(Intent(this, MainActivity::class.java))
