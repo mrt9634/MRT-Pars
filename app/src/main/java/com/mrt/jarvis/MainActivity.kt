@@ -9,22 +9,22 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.speech.SpeechRecognizer
 import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import com.mrt.jarvis.dashboard.*
+import com.mrt.jarvis.dashboard.BmwGaugeView
+import com.mrt.jarvis.dashboard.CornerGaugeView
+import com.mrt.jarvis.dashboard.SpeedLimitView
+import com.mrt.jarvis.dashboard.DashboardViewModel
 import com.mrt.jarvis.diagnostics.DiagnosticsActivity
 import com.mrt.jarvis.settings.AppPrefs
 import com.mrt.jarvis.settings.SettingsActivity
-import com.mrt.jarvis.system.CrashHandler
 import com.mrt.jarvis.system.HardwareProfiler
 import com.mrt.jarvis.system.LogManager
 import com.mrt.jarvis.vehicle.VehicleData
@@ -32,7 +32,8 @@ import com.mrt.jarvis.voice.AssistantController
 import com.mrt.jarvis.voice.VoiceManager
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class MainActivity : AppCompatActivity(), VoiceManager.Callback {
     private val vm: DashboardViewModel by viewModels()
@@ -78,7 +79,7 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         tvGear = findViewById(R.id.tvGear)
         tvAssistant = findViewById(R.id.tvAssistant)
 
-        // تنظیمات گیج دور موتور
+        // تنظیمات گیج دور موتور (حالت BMW)
         gRpm.apply {
             maxValue = 8000f
             majorStep = 1000f
@@ -99,10 +100,13 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         findViewById<View>(R.id.btnSettings).setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
+        
+        // اینجا پرانتز اصلاح شد:
         findViewById<View>(R.id.btnSettings).setOnLongClickListener {
             startActivity(Intent(this, DiagnosticsActivity::class.java))
             true
         }
+        
         findViewById<View>(R.id.btnMic).setOnClickListener { startVoice() }
         
         assistant = AssistantController(this, lifecycleScope, { voice }) { 
@@ -115,7 +119,7 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
             safe("bind") { bind(v) } 
         }
         
-        // راه‌اندازی صدا
+        // راه‌اندازی صدا با تاخیر
         h.postDelayed({ if (voice == null) voice = VoiceManager(this, this) }, 4000)
         
         if (!HardwareProfiler.isDone(this)) Thread {
@@ -127,7 +131,7 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         val mph = prefs.speedUnit == "mph"
         val speedVal = v.speedKmh?.let { if (mph) it * 0.621f else it }
         
-        // آپدیت گیج‌ها
+        // آپدیت گیج‌های BMW
         gSpeed.setValue(speedVal)
         gRpm.setValue(v.rpm)
         gFuel.setValue(v.fuelPercent)
@@ -137,8 +141,10 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         tvSpeedBig.text = speedVal?.let { nf.format(it) } ?: getString(R.string.dash)
         tvGear.text = v.gear ?: getString(R.string.dash)
         
+        // علامت محدودیت سرعت
         limitSign.limit = v.speedLimit
         
+        // حالت رانندگی
         if (v.driveMode != null) {
             tvDriveMode.text = v.driveMode
             tvDriveMode.visibility = View.VISIBLE
