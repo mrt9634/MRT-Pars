@@ -12,15 +12,19 @@ object MusicScanner {
         val tracks = mutableListOf<MusicTrack>()
         val possibleRoots = mutableListOf<File>()
 
-        // مسیرهای رایج فلش در اندروید و هد‌یونیت‌ها
+        // مسیرهای رایج فلش
         possibleRoots.add(File("/storage"))
         possibleRoots.add(File("/mnt/usb_storage"))
         possibleRoots.add(File("/mnt/media_rw"))
-        possibleRoots.add(ctx.getExternalFilesDir(null)?.parentFile)
+        
+        // مسیر پوشه اپ (با چک کردن نال بودن)
+        val extDir = ctx.getExternalFilesDir(null)
+        if (extDir != null && extDir.parentFile != null) {
+            possibleRoots.add(extDir.parentFile!!)
+        }
 
         for (root in possibleRoots) {
-            if (root != null && root.exists() && root.isDirectory) {
-                // اسکن بازگشتی پوشه‌ها
+            if (root.exists() && root.isDirectory) {
                 root.walkTopDown().forEach { file ->
                     if (file.isFile && file.extension.lowercase() in audioExtensions) {
                         val track = extractMetadata(file)
