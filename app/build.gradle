@@ -9,8 +9,8 @@ android {
 
     defaultConfig {
         applicationId "com.mrt.jarvis"
-        minSdk 21
-        targetSdk 28          // ← تغییر کرد از 29 به 28 برای سازگاری با هد‌یونیت
+        minSdk 28
+        targetSdk 28          // برای سازگاری با هد‌یونیت
         versionCode 3
         versionName "2.0.0"
     }
@@ -28,43 +28,54 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-    kotlinOptions { jvmTarget = '17' }
-    buildFeatures { buildConfig = true }
-    lint { abortOnError = false }
+    
+    kotlinOptions { 
+        jvmTarget = '17' 
+    }
+    
+    buildFeatures { 
+        buildConfig = true 
+    }
+    
+    lint { 
+        abortOnError = false 
+    }
 
+    // این بخش برای جلوگیری از تداخل فایل‌های Vosk و JNA حیاتی است
     packaging {
         resources.excludes += [
             'META-INF/*.kotlin_module',
             'META-INF/DEPENDENCIES',
             'META-INF/LICENSE*',
-            'META-INF/NOTICE*'
+            'META-INF/NOTICE*',
+            'META-INF/versions/9/OSGI-INF/MANIFEST.MF'
         ]
     }
 }
 
 dependencies {
-    // پایه‌ی اندروید
+    // ============ پایه‌ی اندروید ============
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.activity:activity-ktx:1.8.2'
 
-    // چیدمان و لیست‌ها
+    // ============ چیدمان و لیست‌ها ============
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'androidx.fragment:fragment-ktx:1.6.2'
 
-    // ViewModel + LiveData
+    // ============ ViewModel + LiveData ============
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
 
-    // ذخیره‌ی امن کلید OpenAI
+    // ============ ذخیره‌ی امن کلید OpenAI ============
     implementation 'androidx.security:security-crypto:1.1.0-alpha06'
 
-    // Coroutines
+    // ============ Coroutines ============
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
 
-    // --- فاز ۸: تشخیص گفتار آفلاین فارسی (فعلاً کامنت) ---
-    // implementation 'com.alphacephei:vosk-android:0.3.47'
-    // implementation 'net.java.dev.jna:jna:5.13.0@aar'
+    // ============ تشخیص گفتار آفلاین Vosk ============
+    implementation 'com.alphacephei:vosk-android:0.3.47'
+    implementation 'net.java.dev.jna:jna:5.13.0@aar'
 }
