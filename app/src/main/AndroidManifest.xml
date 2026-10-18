@@ -73,6 +73,20 @@
             android:screenOrientation="sensorLandscape"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|density"/>
 
+        <!-- Music -->
+        <activity
+            android:name=".music.MusicActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|density"/>
+
+        <!-- GPS -->
+        <activity
+            android:name=".gps.GpsActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|density"/>
+
         <!-- Settings -->
         <activity
             android:name=".settings.SettingsActivity"
