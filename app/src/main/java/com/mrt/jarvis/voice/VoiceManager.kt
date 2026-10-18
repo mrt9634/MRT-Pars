@@ -1,29 +1,44 @@
 package com.mrt.jarvis.voice
 
 import android.content.Context
-import android.content.Intent
-import android.os.Bundle
-import android.speech.RecognitionListener
-import android.speech.RecognizerIntent
-import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
+import android.util.Log
+import org.vosk.Model
+import org.vosk.Recognizer
+import org.vosk.android.RecognitionListener
+import org.vosk.android.SpeechService
+import org.vosk.android.StorageService
 import java.util.Locale
 
-/**
- * Uses the REAL installed Android speech services (e.g. Google, or any offline engine that
- * registers android.speech.RecognitionService). Nothing is faked; if no service exists we say so.
- * Wake word "MRT": designed as an extension point (needs an on-device engine such as Vosk/Porcupine);
- * push-to-talk is the default.
- */
-class VoiceManager(private val ctx: Context, private val cb: Callback) : TextToSpeech.OnInitListener {
-    interface Callback { fun onListening(); fun onResult(text: String); fun onError(code: Int); fun onTtsReady(persian: Boolean) }
+class VoiceManager(private val ctx: Context, private val cb: Callback) : 
+    TextToSpeech.OnInitListener, RecognitionListener {
+
+    interface Callback { 
+        fun onListening()
+        fun onResult(text: String)
+        fun onError(code: Int)
+        fun onTtsReady(persian: Boolean) 
+    }
 
     private val fa = Locale("fa", "IR")
-    private var sr: SpeechRecognizer? = null
     private var tts: TextToSpeech? = TextToSpeech(ctx, this)
+    private var speechService: SpeechService? = null
+    private var model: Model? = null
     var ttsPersian = false; private set
 
-    val recognitionAvailable get() = SpeechRecognizer.isRecognitionAvailable(ctx)
+    init {
+        loadVoskModel()
+    }
+
+    private fun loadVoskModel() {
+        // مدل باید در پوشه assets/model-fa باشد
+        StorageService.unpack(ctx, "model-fa", "model", { m ->
+            model = m
+            Log.i("VoiceManager", "Vosk model loaded successfully")
+        }, { e ->
+            Log.e("VoiceManager", "Failed to load Vosk model", e)
+        })
+    }
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
@@ -34,29 +49,55 @@ class VoiceManager(private val ctx: Context, private val cb: Callback) : TextToS
     }
 
     fun listen() {
-        if (!recognitionAvailable) { cb.onError(-1); return }
-        if (sr == null) sr = SpeechRecognizer.createSpeechRecognizer(ctx).apply { setRecognitionListener(listener) }
-        val i = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-            .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-            .putExtra(RecognizerIntent.EXTRA_LANGUAGE, "fa-IR")
-            .putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, true)
-            .putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1)
-        sr?.startListening(i)
-    }
-
-    fun speak(text: String) { if (ttsPersian) tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "mrt") }
-    fun stopSpeaking() { tts?.stop() }
-
-    fun release() { sr?.destroy(); sr = null; tts?.shutdown(); tts = null }
-
-    private val listener = object : RecognitionListener {
-        override fun onReadyForSpeech(p: Bundle?) = cb.onListening()
-        override fun onResults(b: Bundle?) {
-            b?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)?.firstOrNull()?.let(cb::onResult) ?: cb.onError(7)
+        if (model == null) {
+            cb.onError(-2) // Model not ready
+            return
         }
-        override fun onError(e: Int) = cb.onError(e)
-        override fun onBeginningOfSpeech() {}; override fun onRmsChanged(v: Float) {}
-        override fun onBufferReceived(b: ByteArray?) {}; override fun onEndOfSpeech() {}
-        override fun onPartialResults(b: Bundle?) {}; override fun onEvent(t: Int, b: Bundle?) {}
+        cb.onListening()
+        try {
+            val recognizer = Recognizer(model, 16000.0f)
+            speechService = SpeechService(recognizer, 16000.0f)
+            speechService?.startListening(this)
+        } catch (e: Exception) {
+            cb.onError(-1)
+        }
     }
+
+    fun stopListening() {
+        speechService?.stop()
+        speechService?.shutdown()
+        speechService = null
+    }
+
+    fun speak(text: String) { 
+        if (ttsPersian) tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "mrt") 
+    }
+
+    fun release() { 
+        stopListening()
+        tts?.shutdown()
+        tts = null 
+    }
+
+    // --- Vosk Callbacks ---
+    override fun onPartialResult(hypothesis: String?) {}
+    
+    override fun onResult(hypothesis: String?) {
+        stopListening()
+        if (hypothesis != null) {
+            // Vosk خروجی JSON میده، اینجا ساده شده فرض میکنیم متن خالیه
+            val text = hypothesis.replace("{\"text\" : \"", "").replace("\"}", "").trim()
+            if (text.isNotBlank()) {
+                cb.onResult(text)
+            } else {
+                cb.onError(7) // No match
+            }
+        } else {
+            cb.onError(7)
+        }
+    }
+
+    override fun onFinalResult(hypothesis: String?) { onResult(hypothesis) }
+    override fun onError(exception: Exception?) { stopListening(); cb.onError(-1) }
+    override fun onTimeout() { stopListening(); cb.onError(6) }
 }
