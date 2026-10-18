@@ -1,12 +1,14 @@
 package com.mrt.jarvis.voice
 
 import android.app.Activity
-import android.content.Intent
 import android.media.AudioManager
 import android.view.KeyEvent
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.mrt.jarvis.R
-import com.mrt.jarvis.ai.*
+import com.mrt.jarvis.ai.CommandRouter
+import com.mrt.jarvis.ai.Intent as AiIntent // <-- تغییر نام به AiIntent
+import com.mrt.jarvis.ai.Net
+import com.mrt.jarvis.ai.OpenAIService
 import com.mrt.jarvis.gps.GpsActivity
 import com.mrt.jarvis.music.MusicActivity
 import com.mrt.jarvis.settings.SettingsActivity
@@ -32,41 +34,41 @@ class AssistantController(
         
         val reply: String? = when (r.intent) {
             // --- ناوبری صفحات ---
-            Intent.OPEN_MUSIC -> {
-                act.startActivity(Intent(act, MusicActivity::class.java))
+            AiIntent.OPEN_MUSIC -> {
+                act.startActivity(android.content.Intent(act, MusicActivity::class.java))
                 act.getString(R.string.r_opening_music)
             }
-            Intent.OPEN_GPS -> {
-                act.startActivity(Intent(act, GpsActivity::class.java))
+            AiIntent.OPEN_GPS -> {
+                act.startActivity(android.content.Intent(act, GpsActivity::class.java))
                 act.getString(R.string.r_opening_nav)
             }
-            Intent.OPEN_DASH -> {
-                act.startActivity(Intent(act, MainActivity::class.java))
+            AiIntent.OPEN_DASH -> {
+                act.startActivity(android.content.Intent(act, MainActivity::class.java))
                 act.getString(R.string.r_opening_dash)
             }
-            Intent.OPEN_SETTINGS -> {
-                act.startActivity(Intent(act, SettingsActivity::class.java))
+            AiIntent.OPEN_SETTINGS -> {
+                act.startActivity(android.content.Intent(act, SettingsActivity::class.java))
                 act.getString(R.string.r_opening_settings)
             }
 
             // --- اطلاعات خودرو ---
-            Intent.SPEED -> num(v.speedKmh?.let { Math.round(it).toFloat() }, R.string.r_speed)
-            Intent.RPM -> num(v.rpm?.let { Math.round(it).toFloat() }, R.string.r_rpm)
-            Intent.ENGINE_TEMP -> num(v.engineTempC, R.string.r_temp)
-            Intent.BATTERY -> num(v.batteryVolt, R.string.r_batt)
-            Intent.FUEL -> num(v.fuelPercent, R.string.r_fuel)
+            AiIntent.SPEED -> num(v.speedKmh?.let { Math.round(it).toFloat() }, R.string.r_speed)
+            AiIntent.RPM -> num(v.rpm?.let { Math.round(it).toFloat() }, R.string.r_rpm)
+            AiIntent.ENGINE_TEMP -> num(v.engineTempC, R.string.r_temp)
+            AiIntent.BATTERY -> num(v.batteryVolt, R.string.r_batt)
+            AiIntent.FUEL -> num(v.fuelPercent, R.string.r_fuel)
             
             // --- مدیا ---
-            Intent.MEDIA_PLAY -> media(KeyEvent.KEYCODE_MEDIA_PLAY)
-            Intent.MEDIA_PAUSE -> media(KeyEvent.KEYCODE_MEDIA_PAUSE)
-            Intent.MEDIA_NEXT -> media(KeyEvent.KEYCODE_MEDIA_NEXT)
-            Intent.MEDIA_PREV -> media(KeyEvent.KEYCODE_MEDIA_PREVIOUS)
-            Intent.VOL_UP -> vol(AudioManager.ADJUST_RAISE)
-            Intent.VOL_DOWN -> vol(AudioManager.ADJUST_LOWER)
-            Intent.MUTE -> vol(AudioManager.ADJUST_TOGGLE_MUTE)
+            AiIntent.MEDIA_PLAY -> media(KeyEvent.KEYCODE_MEDIA_PLAY)
+            AiIntent.MEDIA_PAUSE -> media(KeyEvent.KEYCODE_MEDIA_PAUSE)
+            AiIntent.MEDIA_NEXT -> media(KeyEvent.KEYCODE_MEDIA_NEXT)
+            AiIntent.MEDIA_PREV -> media(KeyEvent.KEYCODE_MEDIA_PREVIOUS)
+            AiIntent.VOL_UP -> vol(AudioManager.ADJUST_RAISE)
+            AiIntent.VOL_DOWN -> vol(AudioManager.ADJUST_LOWER)
+            AiIntent.MUTE -> vol(AudioManager.ADJUST_TOGGLE_MUTE)
             
-            Intent.STOP_VOICE -> { voice()?.stopListening(); null }
-            Intent.GENERAL -> { cloud(text); null }
+            AiIntent.STOP_VOICE -> { voice()?.stopListening(); null }
+            AiIntent.GENERAL -> { cloud(text); null }
             else -> null
         }
         reply?.let(::say)
