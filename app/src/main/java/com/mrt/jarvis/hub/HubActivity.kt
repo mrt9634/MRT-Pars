@@ -14,20 +14,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mrt.jarvis.MainActivity
 import com.mrt.jarvis.R
+import com.mrt.jarvis.gps.GpsActivity
 import com.mrt.jarvis.music.MusicActivity
 import com.mrt.jarvis.settings.SettingsActivity
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-/**
- * Hub / Launcher — BMW iDrive style, 6 cards in a row.
- *
- * Navigation:
- *  - Touch any card to open it.
- *  - D-pad Left/Right to move selection, Enter/D-pad-Center to open.
- *  - Cards highlight with an orange border when selected.
- */
 class HubActivity : AppCompatActivity() {
 
     private lateinit var cardsContainer: LinearLayout
@@ -67,7 +60,6 @@ class HubActivity : AppCompatActivity() {
         buildCards()
         renderCards()
         selectCard(0, open = false)
-
         h.post(clockTick)
     }
 
@@ -135,7 +127,9 @@ class HubActivity : AppCompatActivity() {
             HubAction.OpenMusic -> {
                 startActivity(Intent(this, MusicActivity::class.java))
             }
-            HubAction.OpenNavigation -> placeholder(card)
+            HubAction.OpenNavigation -> {
+                startActivity(Intent(this, GpsActivity::class.java))
+            }
             HubAction.OpenDashboard ->
                 startActivity(Intent(this, MainActivity::class.java))
             HubAction.OpenSettings ->
