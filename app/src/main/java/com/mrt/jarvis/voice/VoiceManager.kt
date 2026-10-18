@@ -6,7 +6,7 @@ import android.util.Log
 import org.json.JSONObject
 import org.vosk.Model
 import org.vosk.Recognizer
-import org.vosk.RecognitionListener
+import org.vosk.android.RecognitionListener // <-- اینجا اصلاح شد
 import org.vosk.android.SpeechService
 import org.vosk.android.StorageService
 import java.util.Locale
@@ -33,8 +33,6 @@ class VoiceManager(private val ctx: Context, private val cb: Callback) :
 
     private fun loadVoskModel() {
         // مدل باید در پوشه assets/model-fa باشد
-        // نام پوشه assets: model-fa
-        // نام پوشه داخلی که باز میشه: model
         StorageService.unpack(ctx, "model-fa", "model", { m ->
             model = m
             Log.i("VoiceManager", "Vosk model loaded successfully")
