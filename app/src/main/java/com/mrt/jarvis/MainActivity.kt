@@ -20,8 +20,8 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.mrt.jarvis.dashboard.BmwGaugeView
 import com.mrt.jarvis.dashboard.CornerGaugeView
-import com.mrt.jarvis.dashboard.SpeedLimitView
 import com.mrt.jarvis.dashboard.DashboardViewModel
+import com.mrt.jarvis.dashboard.SpeedLimitView
 import com.mrt.jarvis.diagnostics.DiagnosticsActivity
 import com.mrt.jarvis.settings.AppPrefs
 import com.mrt.jarvis.settings.SettingsActivity
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
     private val vm: DashboardViewModel by viewModels()
     private lateinit var prefs: AppPrefs
     
-    // ویوهای جدید داشبورد BMW
+    // ویوهای داشبورد BMW
     private lateinit var gSpeed: BmwGaugeView
     private lateinit var gRpm: BmwGaugeView
     private lateinit var gFuel: CornerGaugeView
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         setContentView(R.layout.activity_main)
         prefs = AppPrefs(this)
         
-        // پیدا کردن ویوها از XML جدید
+        // پیدا کردن ویوها
         gSpeed = findViewById(R.id.gSpeed)
         gRpm = findViewById(R.id.gRpm)
         gFuel = findViewById(R.id.gFuel)
@@ -79,11 +79,11 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         tvGear = findViewById(R.id.tvGear)
         tvAssistant = findViewById(R.id.tvAssistant)
 
-        // تنظیمات گیج دور موتور (حالت BMW)
+        // تنظیمات گیج دور موتور
         gRpm.apply {
             maxValue = 8000f
             majorStep = 1000f
-            accentColor = 0xFFE5484D.toInt() // رنگ قرمز برای دور موتور BMW
+            accentColor = 0xFFE5484D.toInt()
             numberFormat = { (it / 1000f).toInt().toString() }
         }
         
@@ -101,7 +101,6 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
         
-        // اینجا پرانتز اصلاح شد:
         findViewById<View>(R.id.btnSettings).setOnLongClickListener {
             startActivity(Intent(this, DiagnosticsActivity::class.java))
             true
@@ -109,6 +108,7 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         
         findViewById<View>(R.id.btnMic).setOnClickListener { startVoice() }
         
+        // راه‌اندازی دستیار
         assistant = AssistantController(this, lifecycleScope, { voice }) { 
             tvAssistant.text = it
             tvAssistant.visibility = View.VISIBLE 
@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
             safe("bind") { bind(v) } 
         }
         
-        // راه‌اندازی صدا با تاخیر
+        // راه‌اندازی صدا با تاخیر (تا UI کامل لود بشه)
         h.postDelayed({ if (voice == null) voice = VoiceManager(this, this) }, 4000)
         
         if (!HardwareProfiler.isDone(this)) Thread {
@@ -131,20 +131,16 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         val mph = prefs.speedUnit == "mph"
         val speedVal = v.speedKmh?.let { if (mph) it * 0.621f else it }
         
-        // آپدیت گیج‌های BMW
         gSpeed.setValue(speedVal)
         gRpm.setValue(v.rpm)
         gFuel.setValue(v.fuelPercent)
         gTemp.setValue(v.engineTempC)
         
-        // آپدیت وسط صفحه
         tvSpeedBig.text = speedVal?.let { nf.format(it) } ?: getString(R.string.dash)
         tvGear.text = v.gear ?: getString(R.string.dash)
         
-        // علامت محدودیت سرعت
         limitSign.limit = v.speedLimit
         
-        // حالت رانندگی
         if (v.driveMode != null) {
             tvDriveMode.text = v.driveMode
             tvDriveMode.visibility = View.VISIBLE
@@ -181,8 +177,10 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         return super.onKeyDown(code, e)
     }
 
+    // --- Callbackهای VoiceManager ---
     override fun onListening() { 
-        tvAssistant.setText(R.string.listening) 
+        tvAssistant.setText(R.string.listening)
+        tvAssistant.visibility = View.VISIBLE
     }
     
     override fun onResult(text: String) { 
@@ -191,7 +189,13 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
     }
     
     override fun onError(code: Int) { 
-        tvAssistant.setText(if (code == -1) R.string.r_no_stt else R.string.r_not_understood) 
+        // کدهای خطای Vosk و اندروید
+        val msgRes = when (code) {
+            -2 -> R.string.music_loading // مدل در حال لود شدن است
+            -1 -> R.string.r_no_stt      // خطای سخت افزاری/عدم دسترسی
+            else -> R.string.r_not_understood // متوجه نشدم
+        }
+        tvAssistant.setText(msgRes)
     }
     
     override fun onTtsReady(persian: Boolean) { 
@@ -201,6 +205,7 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         } 
     }
 
+    // --- Lifecycle ---
     override fun onResume() {
         super.onResume()
         immersive()
