@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_pure"
+    android:layoutDirection="ltr">
+
+    <!-- Top Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical"
+        android:layoutDirection="rtl">
+        
+        <ImageButton
+            android:id="@+id/btnBackGps"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_revert"
+            android:tint="@color/text"/>
+            
+        <TextView
+            android:id="@+id/tvTimeGps"
+            style="@style/Value"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="16dp"
+            android:gravity="end"
+            android:textSize="18sp"
+            android:text="00:00"/>
+    </LinearLayout>
+
+    <!-- Main Content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="60dp"
+        android:padding="10dp">
+
+        <!-- Left: Speed Area -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.8"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/glass"
+            android:layout_marginEnd="10dp"
+            android:padding="16dp">
+            
+            <TextView
+                android:id="@+id/tvGpsSpeed"
+                android:textColor="@color/text"
+                android:textSize="72sp"
+                android:fontFamily="sans-serif-thin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"/>
+                
+            <TextView
+                style="@style/Label"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kmh"/>
+                
+            <com.mrt.jarvis.dashboard.SpeedLimitView
+                android:id="@+id/gpsLimitSign"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <!-- Right: Map Placeholder -->
+        <FrameLayout
+            android:id="@+id/mapContainer"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:background="@color/gps_bg"
+            android:clickable="true"
+            android:focusable="true">
+            
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gps_road"/>
+                
+            <TextView
+                android:id="@+id/tvMapText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/gps_open_maps"
+                android:textColor="@color/text"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-light"/>
+                
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginTop="60dp"
+                android:src="@android:drawable/ic_dialog_map"
+                android:tint="@color/accent"/>
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- Bottom Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/glass"
+        android:padding="10dp"
+        android:layoutDirection="ltr">
+        
+        <TextView
+            android:id="@+id/tvGpsRange"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/text_dim"
+            android:textSize="12sp"
+            android:text="-- km"/>
+            
+        <TextView
+            android:id="@+id/tvGpsTemp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/text_dim"
+            android:textSize="12sp"
+            android:text="-- °C"/>
+            
+        <TextView
+            android:id="@+id/tvGpsGear"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:textColor="@color/text"
+            android:textSize="16sp"
+            android:text="P"/>
+    </LinearLayout>
+</FrameLayout>
