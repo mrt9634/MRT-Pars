@@ -26,8 +26,7 @@ data class VehicleData(
     val reverse: Boolean? = null,
     val engineRunning: Boolean? = null,
     val isDemo: Boolean = false,
-    
-    // --- فاز ۴: فیلدهای جدید برای BMW Live Cockpit ---
     val speedLimit: Int? = null,
-    val driveMode: String? = null // COMFORT, SPORT, ECO
+    val driveMode: String? = null,
+    val rangeKm: Float? = null
 )
