@@ -28,6 +28,7 @@ import com.mrt.jarvis.settings.SettingsActivity
 import com.mrt.jarvis.system.HardwareProfiler
 import com.mrt.jarvis.system.LogManager
 import com.mrt.jarvis.vehicle.VehicleData
+import com.mrt.jarvis.vehicle.VehicleDataRepository
 import com.mrt.jarvis.voice.AssistantController
 import com.mrt.jarvis.voice.VoiceManager
 import java.text.NumberFormat
@@ -122,11 +123,44 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         // راه‌اندازی صدا با تاخیر (تا UI کامل لود بشه)
         h.postDelayed({ if (voice == null) voice = VoiceManager(this, this) }, 4000)
         
+        // درخواست خودکار مجوز GPS در بدو ورود
+        checkLocationPermission()
+
         if (!HardwareProfiler.isDone(this)) Thread {
             runCatching { HardwareProfiler.run(applicationContext) }
         }.apply { priority = Thread.MIN_PRIORITY }.start()
     }
 
+    // ============ مجوزها ============
+    private fun checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 2)
+        }
+    }
+
+    private fun startVoice() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), 1)
+            return 
+        }
+        if (voice == null) voice = VoiceManager(this, this)
+        safe("listen") { voice?.listen() }
+    }
+
+    override fun onRequestPermissionsResult(r: Int, p: Array<out String>, g: IntArray) {
+        super.onRequestPermissionsResult(r, p, g)
+        
+        if (r == 1) { // درخواست میکروفون
+            if (g.firstOrNull() == PackageManager.PERMISSION_GRANTED) startVoice()
+        } else if (r == 2) { // درخواست GPS
+            if (g.firstOrNull() == PackageManager.PERMISSION_GRANTED) {
+                // اگر مجوز GPS داد، ریپازیتوری رو ری‌استارت می‌کنیم تا سنسور GPS فعال بشه
+                VehicleDataRepository.restart(this)
+            }
+        }
+    }
+
+    // ============ آپدیت UI ============
     private fun bind(v: VehicleData) {
         val mph = prefs.speedUnit == "mph"
         val speedVal = v.speedKmh?.let { if (mph) it * 0.621f else it }
@@ -155,20 +189,6 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         findViewById<TextView>(R.id.tvTime).text = tf.format(now)
     }
 
-    private fun startVoice() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), 1)
-            return 
-        }
-        if (voice == null) voice = VoiceManager(this, this)
-        safe("listen") { voice?.listen() }
-    }
-
-    override fun onRequestPermissionsResult(r: Int, p: Array<out String>, g: IntArray) {
-        super.onRequestPermissionsResult(r, p, g)
-        if (g.firstOrNull() == PackageManager.PERMISSION_GRANTED) startVoice()
-    }
-
     override fun onKeyDown(code: Int, e: KeyEvent): Boolean {
         if (code == prefs.swcVoiceKey || code == KeyEvent.KEYCODE_VOICE_ASSIST || code == KeyEvent.KEYCODE_SEARCH) {
             startVoice()
@@ -177,7 +197,7 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         return super.onKeyDown(code, e)
     }
 
-    // --- Callbackهای VoiceManager ---
+    // ============ Callbackهای VoiceManager ============
     override fun onListening() { 
         tvAssistant.setText(R.string.listening)
         tvAssistant.visibility = View.VISIBLE
@@ -189,11 +209,10 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
     }
     
     override fun onError(code: Int) { 
-        // کدهای خطای Vosk و اندروید
         val msgRes = when (code) {
             -2 -> R.string.music_loading // مدل در حال لود شدن است
-            -1 -> R.string.r_no_stt      // خطای سخت افزاری/عدم دسترسی
-            else -> R.string.r_not_understood // متوجه نشدم
+            -1 -> R.string.r_no_stt      
+            else -> R.string.r_not_understood 
         }
         tvAssistant.setText(msgRes)
     }
@@ -205,7 +224,7 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         } 
     }
 
-    // --- Lifecycle ---
+    // ============ Lifecycle ============
     override fun onResume() {
         super.onResume()
         immersive()
