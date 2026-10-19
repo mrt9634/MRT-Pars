@@ -49,7 +49,6 @@ class SettingsHubActivity : AppCompatActivity() {
 
     private fun buildCards() {
         cards.clear()
-        // استفاده از آیکون‌های سیستم برای سرعت بالا و بدون حجم
         cards += HubCard("media", android.R.drawable.ic_media_play,
             R.string.hub_media, HubAction.OpenMusic)
         cards += HubCard("comm", android.R.drawable.ic_menu_call,
@@ -76,7 +75,7 @@ class SettingsHubActivity : AppCompatActivity() {
             view.findViewById<ImageView>(R.id.ivCardIcon).setImageResource(card.iconRes)
             view.findViewById<TextView>(R.id.tvCardLabel).setText(card.labelRes)
 
-            val lp = LinearLayout.LayoutParams(0, (160 * resources.displayMetrics.density).toInt(), 1f).apply {
+            val lp = LinearLayout.LayoutParams(0, (140 * resources.displayMetrics.density).toInt(), 1f).apply {
                 setMargins(marginPx, 0, marginPx, 0)
             }
             view.layoutParams = lp
@@ -99,8 +98,8 @@ class SettingsHubActivity : AppCompatActivity() {
                 if (i == selectedIndex) R.drawable.card_selected
                 else R.drawable.card_normal
             )
-            v.scaleX = if (i == selectedIndex) 1.04f else 1f
-            v.scaleY = if (i == selectedIndex) 1.04f else 1f
+            v.scaleX = if (i == selectedIndex) 1.05f else 1f
+            v.scaleY = if (i == selectedIndex) 1.05f else 1f
         }
 
         if (open) openCard(cards[selectedIndex])
@@ -113,15 +112,12 @@ class SettingsHubActivity : AppCompatActivity() {
             HubAction.OpenDashboard -> startActivity(Intent(this, MainActivity::class.java))
             HubAction.OpenSettings -> startActivity(Intent(this, SettingsActivity::class.java))
             HubAction.OpenCommunication -> {
-                // باز کردن تنظیمات بلوتوث/تماس اندروید
                 startActivity(Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS))
             }
             HubAction.OpenConnected -> {
-                // باز کردن تنظیمات شبکه (برای اتصال به وای‌فای/دیتا)
                 startActivity(Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS))
             }
             HubAction.OpenNotifications -> {
-                // رفتن به صفحه لاگ‌ها / دیاگنوستیک
                 startActivity(Intent(this, DiagnosticsActivity::class.java))
             }
             else -> {}
