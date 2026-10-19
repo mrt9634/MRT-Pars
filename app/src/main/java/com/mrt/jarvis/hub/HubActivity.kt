@@ -1,7 +1,6 @@
 package com.mrt.jarvis.hub
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -77,7 +76,7 @@ class HubActivity : AppCompatActivity() {
             R.string.hub_connected, HubAction.OpenConnected)
         cards += HubCard("vehicle", android.R.drawable.ic_menu_info_details,
             R.string.hub_vehicle, HubAction.OpenDashboard)
-        // کارت آخر به برنامه‌ها تغییر کرد
+        // کارت آخر (اعلان‌ها) به برنامه‌ها تغییر یافت
         cards += HubCard("apps", android.R.drawable.ic_menu_sort_by_size,
             R.string.hub_apps, HubAction.OpenApps)
     }
@@ -138,7 +137,6 @@ class HubActivity : AppCompatActivity() {
             HubAction.OpenSettings ->
                 startActivity(Intent(this, SettingsActivity::class.java))
             HubAction.OpenCommunication -> {
-                // باز کردن دیالر تماس
                 try {
                     startActivity(Intent(Intent.ACTION_DIAL))
                 } catch (e: Exception) {
@@ -146,13 +144,12 @@ class HubActivity : AppCompatActivity() {
                 }
             }
             HubAction.OpenApps -> {
-                // باز کردن گرید برنامه‌ها
                 startActivity(Intent(this, AppsGridActivity::class.java))
             }
             HubAction.OpenConnected -> {
-                // تنظیمات شبکه
                 startActivity(Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS))
             }
+            HubAction.OpenNotifications -> placeholder(card) // <-- این خط مشکل when رو حل می‌کنه
             HubAction.Placeholder -> placeholder(card)
         }
     }
