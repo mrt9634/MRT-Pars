@@ -18,7 +18,7 @@
     
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
-    <!-- ============ کوئری‌ها (برای دسترسی به سرویس‌های اندروید) ============ -->
+    <!-- ============ کوئری‌ها ============ -->
     <queries>
         <intent><action android:name="android.speech.RecognitionService"/></intent>
         <intent><action android:name="android.intent.action.TTS_SERVICE"/></intent>
@@ -30,9 +30,13 @@
             <action android:name="android.intent.action.MAIN"/>
             <category android:name="android.intent.category.LAUNCHER"/>
         </intent>
+        <!-- برای باز کردن دیالر تماس -->
+        <intent>
+            <action android:name="android.intent.action.DIAL"/>
+        </intent>
     </queries>
 
-    <!-- ============ ویژگی‌های سخت‌افزاری (اختیاری) ============ -->
+    <!-- ============ ویژگی‌های سخت‌افزاری ============ -->
     <uses-feature android:name="android.hardware.usb.host" android:required="false"/>
     <uses-feature android:name="android.hardware.microphone" android:required="false"/>
     <uses-feature android:name="android.hardware.location.gps" android:required="false"/>
@@ -50,7 +54,7 @@
         android:allowBackup="false"
         android:hardwareAccelerated="true">
 
-        <!-- Splash (نقطه شروع) -->
+        <!-- 1. Splash (نقطه شروع) -->
         <activity
             android:name=".splash.SplashActivity"
             android:exported="true"
@@ -64,22 +68,31 @@
             </intent-filter>
         </activity>
 
-        <!-- Hub اصلی -->
+        <!-- 2. Hub اصلی -->
         <activity
             android:name=".hub.HubActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="sensorLandscape"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|density" />
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|density">
+            <!-- اگر می‌خوای Hub به عنوان Home شناخته بشه، این intent-filter رو از کامنت دربیار -->
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.HOME"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+            -->
+        </activity>
 
-        <!-- Settings Hub (منوی 6 کارتی تنظیمات) -->
+        <!-- 3. منوی تنظیمات iDrive (6 کارتی) -->
         <activity
             android:name=".hub.SettingsHubActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|density"/>
 
-        <!-- داشبورد BMW -->
+        <!-- 4. داشبورد BMW -->
         <activity
             android:name=".MainActivity"
             android:exported="false"
@@ -87,35 +100,42 @@
             android:screenOrientation="sensorLandscape"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|density"/>
 
-        <!-- پخش‌کننده موسیقی -->
+        <!-- 5. پخش‌کننده موسیقی -->
         <activity
             android:name=".music.MusicActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|density"/>
 
-        <!-- صفحه GPS -->
+        <!-- 6. صفحه GPS -->
         <activity
             android:name=".gps.GpsActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|density"/>
 
-        <!-- تنظیمات اصلی -->
+        <!-- 7. تنظیمات اصلی -->
         <activity
             android:name=".settings.SettingsActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|density"/>
 
-        <!-- دیاگنوستیک -->
+        <!-- 8. دیاگنوستیک -->
         <activity
             android:name=".diagnostics.DiagnosticsActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|density"/>
 
-        <!-- Boot Receiver (اجرا بعد از روشن شدن) -->
+        <!-- 9. گرید برنامه‌ها (Apps Grid) -->
+        <activity
+            android:name=".apps.AppsGridActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|density"/>
+
+        <!-- 10. Boot Receiver (اجرا بعد از روشن شدن) -->
         <receiver android:name=".boot.BootReceiver" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
