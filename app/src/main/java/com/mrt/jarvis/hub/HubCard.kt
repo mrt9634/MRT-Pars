@@ -25,5 +25,6 @@ sealed class HubAction {
     object OpenSettings : HubAction()
     object OpenConnected : HubAction()
     object OpenCommunication : HubAction()
+    object OpenApps : HubAction() // <-- این خط جدید اضافه شد
     object Placeholder : HubAction()
 }
