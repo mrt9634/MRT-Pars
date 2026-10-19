@@ -46,9 +46,11 @@
     <string name="hub_vehicle">خودروی من</string>
     <string name="hub_notifications">اعلان‌ها</string>
     <string name="hub_apps">برنامه‌ها</string>
-    <string name="apps_title">همه برنامه‌ها</string>
     <string name="hub_hint">برای انتخاب، لمس کنید یا از کلیدهای فرمان استفاده کنید</string>
     <string name="hub_placeholder">این بخش هنوز آماده نیست</string>
+
+    <!-- ============ Apps Grid (فاز ۱۰) ============ -->
+    <string name="apps_title">همه برنامه‌ها</string>
 
     <!-- ============ Dashboard (BMW Live Cockpit) ============ -->
     <string name="dash_speed">سرعت</string>
