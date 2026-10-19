@@ -5,9 +5,8 @@
     android:background="@drawable/bg_hub"
     android:layoutDirection="ltr">
 
-    <!-- ============ TOP BAR ============ -->
+    <!-- TOP BAR -->
     <LinearLayout
-        android:id="@+id/hubTopBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -67,17 +66,32 @@
             android:letterSpacing="0.05"/>
     </LinearLayout>
 
-    <!-- ============ CARDS ROW ============ -->
+    <!-- محتوای وسط (ساعت + کارت‌ها) -->
     <LinearLayout
-        android:id="@+id/hubCards"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="40dp">
 
-    <!-- ============ BOTTOM HINT ============ -->
+        <!-- ساعت عقربه‌ای سه‌بعدی -->
+        <com.mrt.jarvis.dashboard.AnalogClockView
+            android:id="@+id/hubClock"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- کارت‌ها -->
+        <LinearLayout
+            android:id="@+id/hubCards"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"/>
+    </LinearLayout>
+
+    <!-- BOTTOM HINT -->
     <TextView
         android:id="@+id/tvHubHint"
         android:layout_width="wrap_content"
