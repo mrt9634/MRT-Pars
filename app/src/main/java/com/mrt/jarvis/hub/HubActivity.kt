@@ -1,6 +1,7 @@
 package com.mrt.jarvis.hub
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mrt.jarvis.MainActivity
 import com.mrt.jarvis.R
+import com.mrt.jarvis.apps.AppsGridActivity
 import com.mrt.jarvis.gps.GpsActivity
 import com.mrt.jarvis.music.MusicActivity
 import com.mrt.jarvis.settings.SettingsActivity
@@ -54,7 +56,7 @@ class HubActivity : AppCompatActivity() {
             selectCard(0, open = false)
         }
         findViewById<View>(R.id.btnGrid).setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
+            startActivity(Intent(this, SettingsHubActivity::class.java))
         }
 
         buildCards()
@@ -75,8 +77,9 @@ class HubActivity : AppCompatActivity() {
             R.string.hub_connected, HubAction.OpenConnected)
         cards += HubCard("vehicle", android.R.drawable.ic_menu_info_details,
             R.string.hub_vehicle, HubAction.OpenDashboard)
-        cards += HubCard("notif", android.R.drawable.ic_dialog_info,
-            R.string.hub_notifications, HubAction.OpenNotifications)
+        // کارت آخر به برنامه‌ها تغییر کرد
+        cards += HubCard("apps", android.R.drawable.ic_menu_sort_by_size,
+            R.string.hub_apps, HubAction.OpenApps)
     }
 
     private fun renderCards() {
@@ -134,9 +137,22 @@ class HubActivity : AppCompatActivity() {
                 startActivity(Intent(this, MainActivity::class.java))
             HubAction.OpenSettings ->
                 startActivity(Intent(this, SettingsActivity::class.java))
-            HubAction.OpenCommunication,
-            HubAction.OpenConnected,
-            HubAction.OpenNotifications -> placeholder(card)
+            HubAction.OpenCommunication -> {
+                // باز کردن دیالر تماس
+                try {
+                    startActivity(Intent(Intent.ACTION_DIAL))
+                } catch (e: Exception) {
+                    Toast.makeText(this, "برنامه تماس یافت نشد", Toast.LENGTH_SHORT).show()
+                }
+            }
+            HubAction.OpenApps -> {
+                // باز کردن گرید برنامه‌ها
+                startActivity(Intent(this, AppsGridActivity::class.java))
+            }
+            HubAction.OpenConnected -> {
+                // تنظیمات شبکه
+                startActivity(Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS))
+            }
             HubAction.Placeholder -> placeholder(card)
         }
     }
