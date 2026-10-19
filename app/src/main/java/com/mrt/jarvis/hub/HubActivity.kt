@@ -76,7 +76,6 @@ class HubActivity : AppCompatActivity() {
             R.string.hub_connected, HubAction.OpenConnected)
         cards += HubCard("vehicle", android.R.drawable.ic_menu_info_details,
             R.string.hub_vehicle, HubAction.OpenDashboard)
-        // کارت آخر (اعلان‌ها) به برنامه‌ها تغییر یافت
         cards += HubCard("apps", android.R.drawable.ic_menu_sort_by_size,
             R.string.hub_apps, HubAction.OpenApps)
     }
@@ -94,7 +93,7 @@ class HubActivity : AppCompatActivity() {
             view.findViewById<ImageView>(R.id.ivCardIcon).setImageResource(card.iconRes)
             view.findViewById<TextView>(R.id.tvCardLabel).setText(card.labelRes)
 
-            val lp = LinearLayout.LayoutParams(0, dp(160), 1f).apply {
+            val lp = LinearLayout.LayoutParams(0, dp(140), 1f).apply {
                 setMargins(marginPx, 0, marginPx, 0)
             }
             view.layoutParams = lp
@@ -117,8 +116,8 @@ class HubActivity : AppCompatActivity() {
                 if (i == selectedIndex) R.drawable.card_selected
                 else R.drawable.card_normal
             )
-            v.scaleX = if (i == selectedIndex) 1.04f else 1f
-            v.scaleY = if (i == selectedIndex) 1.04f else 1f
+            v.scaleX = if (i == selectedIndex) 1.05f else 1f
+            v.scaleY = if (i == selectedIndex) 1.05f else 1f
         }
 
         if (open) openCard(cards[selectedIndex])
@@ -126,16 +125,10 @@ class HubActivity : AppCompatActivity() {
 
     private fun openCard(card: HubCard) {
         when (card.action) {
-            HubAction.OpenMusic -> {
-                startActivity(Intent(this, MusicActivity::class.java))
-            }
-            HubAction.OpenNavigation -> {
-                startActivity(Intent(this, GpsActivity::class.java))
-            }
-            HubAction.OpenDashboard ->
-                startActivity(Intent(this, MainActivity::class.java))
-            HubAction.OpenSettings ->
-                startActivity(Intent(this, SettingsActivity::class.java))
+            HubAction.OpenMusic -> startActivity(Intent(this, MusicActivity::class.java))
+            HubAction.OpenNavigation -> startActivity(Intent(this, GpsActivity::class.java))
+            HubAction.OpenDashboard -> startActivity(Intent(this, MainActivity::class.java))
+            HubAction.OpenSettings -> startActivity(Intent(this, SettingsActivity::class.java))
             HubAction.OpenCommunication -> {
                 try {
                     startActivity(Intent(Intent.ACTION_DIAL))
@@ -143,13 +136,9 @@ class HubActivity : AppCompatActivity() {
                     Toast.makeText(this, "برنامه تماس یافت نشد", Toast.LENGTH_SHORT).show()
                 }
             }
-            HubAction.OpenApps -> {
-                startActivity(Intent(this, AppsGridActivity::class.java))
-            }
-            HubAction.OpenConnected -> {
-                startActivity(Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS))
-            }
-            HubAction.OpenNotifications -> placeholder(card) // <-- این خط مشکل when رو حل می‌کنه
+            HubAction.OpenApps -> startActivity(Intent(this, AppsGridActivity::class.java))
+            HubAction.OpenConnected -> startActivity(Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS))
+            HubAction.OpenNotifications -> placeholder(card)
             HubAction.Placeholder -> placeholder(card)
         }
     }
@@ -221,6 +210,5 @@ class HubActivity : AppCompatActivity() {
         tvWarn.visibility = View.GONE
     }
 
-    private fun dp(v: Int): Int =
-        (v * resources.displayMetrics.density).toInt()
+    private fun dp(v: Int): Int = (v * resources.displayMetrics.density).toInt()
 }
