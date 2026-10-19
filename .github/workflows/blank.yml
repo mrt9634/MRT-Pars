@@ -9,6 +9,18 @@ jobs:
         with: { distribution: temurin, java-version: '17' }
       - uses: gradle/actions/setup-gradle@v3
         with: { gradle-version: '8.7' }
+
+      # --- دانلود خودکار مدل صوتی Vosk (بدون نیاز به آپلود دستی) ---
+      - name: Download Vosk Model
+        run: |
+          wget https://alphacephei.com/vosk/models/vosk-model-small-fa-0.4.zip
+          unzip vosk-model-small-fa-0.4.zip
+          mkdir -p app/src/main/assets
+          mv vosk-model-small-fa-0.4 app/src/main/assets/model-fa
+
+      # --- بیلد برنامه ---
       - run: gradle :app:assembleRelease :app:assembleDebug
+      
+      # --- آپلود فایل نهایی ---
       - uses: actions/upload-artifact@v4
         with: { name: MRT1-apk, path: app/build/outputs/apk/**/*.apk }
