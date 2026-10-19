@@ -30,7 +30,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var cats: LinearLayout
     private val prefs by lazy { AppPrefs(this) }
     private var canDirty = false
-    private var uiDirty = false       // launcher/splash/dash style changed → suggest restart
+    private var uiDirty = false
     private var learningKey = false
     private var current = 0
     private val onLeave = ArrayList<() -> Unit>()
@@ -39,7 +39,7 @@ class SettingsActivity : AppCompatActivity() {
         R.string.c_vehicle,      // 0
         R.string.c_can,          // 1
         R.string.c_dashboard,    // 2
-        R.string.c_launcher,     // 3  ← NEW
+        R.string.c_launcher,     // 3
         R.string.c_clock,        // 4
         R.string.c_display,      // 5
         R.string.c_voice,        // 6
@@ -108,7 +108,6 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    // ============ 0. Vehicle ============
     private fun vehicle() {
         val m = edit(R.string.s_vehicle_model, prefs.vehicleModel)
         onLeave += { prefs.vehicleModel = m.text.toString() }
@@ -121,7 +120,6 @@ class SettingsActivity : AppCompatActivity() {
         note(getString(R.string.s_vehicle_note))
     }
 
-    // ============ 1. CAN ============
     private fun can() {
         val s = VehicleDataRepository.canStats()
         note(getString(R.string.s_can_readonly))
@@ -184,7 +182,6 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    // ============ 2. Dashboard ============
     private fun dashboard() {
         radio(R.string.s_dash_style,
             listOf("bmw" to R.string.s_dash_bmw, "classic" to R.string.s_dash_classic),
@@ -214,7 +211,6 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    // ============ 3. Launcher (NEW) ============
     private fun launcher() {
         radio(R.string.s_launcher_style,
             listOf(
@@ -233,7 +229,6 @@ class SettingsActivity : AppCompatActivity() {
         note("تغییرات سبک منو و صفحه آغازین، در اجرای بعدی اعمال می‌شود.")
     }
 
-    // ============ 4. Clock ============
     private fun clock() {
         switch(R.string.s_clock24, prefs.clock24) { prefs.clock24 = it }
         switch(R.string.s_analog, prefs.analogClock) { prefs.analogClock = it }
@@ -245,7 +240,6 @@ class SettingsActivity : AppCompatActivity() {
         button(R.string.s_open_date_settings) { open(Intent(Settings.ACTION_DATE_SETTINGS)) }
     }
 
-    // ============ 5. Display ============
     private fun display() {
         switch(R.string.s_fullscreen, prefs.fullscreen) { prefs.fullscreen = it }
         switch(R.string.s_keep_on, prefs.keepScreenOn) { prefs.keepScreenOn = it }
@@ -257,7 +251,6 @@ class SettingsActivity : AppCompatActivity() {
              "(${resources.configuration.screenWidthDp}x${resources.configuration.screenHeightDp}dp)")
     }
 
-    // ============ 6. Voice ============
     private fun voice() {
         switch(R.string.s_tts, prefs.ttsEnabled) { prefs.ttsEnabled = it }
         switch(R.string.s_wake, prefs.wakeWord) { prefs.wakeWord = it }
@@ -273,7 +266,6 @@ class SettingsActivity : AppCompatActivity() {
         button(R.string.s_open_tts) { open(Intent("com.android.settings.TTS_SETTINGS")) }
     }
 
-    // ============ 7. AI / OpenAI ============
     private fun ai() {
         switch(R.string.s_ai_enable, prefs.aiEnabled) { prefs.aiEnabled = it }
 
@@ -297,13 +289,11 @@ class SettingsActivity : AppCompatActivity() {
               getString(if (Net.online(this)) R.string.online else R.string.offline))
     }
 
-    // ============ 8. Media ============
     private fun media() {
         seek(R.string.s_vol_step, prefs.volumeStep, 1, 5) { prefs.volumeStep = it }
         button(R.string.s_open_sound) { open(Intent(Settings.ACTION_SOUND_SETTINGS)) }
     }
 
-    // ============ 9. Steering wheel ============
     private lateinit var swcLabel: TextView
     private fun swc() {
         swcLabel = label(getString(R.string.s_swc_voice) + ": " + KeyEvent.keyCodeToString(prefs.swcVoiceKey))
@@ -324,7 +314,6 @@ class SettingsActivity : AppCompatActivity() {
         return super.onKeyDown(code, e)
     }
 
-    // ============ 10. Diagnostics ============
     private fun diag() {
         button(R.string.s_open_diag) {
             startActivity(Intent(this, DiagnosticsActivity::class.java))
@@ -338,7 +327,6 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    // ============ 11. System ============
     private fun system() {
         switch(R.string.s_start_boot, prefs.startOnBoot) { prefs.startOnBoot = it }
         button(R.string.s_home_settings) { open(Intent(Settings.ACTION_HOME_SETTINGS)) }
@@ -360,13 +348,11 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    // ============ 12. About ============
     private fun about() {
         label(getString(R.string.version) + ": " + BuildConfig.VERSION_NAME)
         note(getString(R.string.about_text))
     }
 
-    // ============ helpers ============
     private fun flush() {
         onLeave.forEach { runCatching { it() } }
         onLeave.clear()
