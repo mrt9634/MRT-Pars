@@ -11,23 +11,14 @@ android {
         applicationId "com.mrt.jarvis"
         minSdk 21
         targetSdk 28
-        versionCode 8
-        versionName "2.5.0"
+        versionCode 9
+        versionName "2.6.0"
         
         setProperty("archivesBaseName", "MRT1")
 
-        // 🔥 این خط جادو می‌کنه: فقط کتابخانه‌های پردازنده هد‌یونیت رو بیلد کن
+        // فقط کتابخانه‌های پردازنده هد‌یونیت رو بیلد کن
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a'
-        }
-    }
-
-    signingConfigs {
-        debug {
-            v1SigningEnabled true
-            v2SigningEnabled true
-            v3SigningEnabled false
-            v4SigningEnabled false
         }
     }
 
@@ -36,7 +27,7 @@ android {
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.debug // استفاده از امضای خودکار دیباگ
         }
     }
 
@@ -51,7 +42,7 @@ android {
 
     packaging {
         jniLibs {
-            useLegacyPackaging = true 
+            useLegacyPackaging = true // برای نصب بدون خطا روی هد‌یونیت
         }
         resources.excludes += [
             'META-INF/*.kotlin_module',
