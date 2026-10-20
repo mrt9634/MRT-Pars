@@ -10,18 +10,30 @@ android {
     defaultConfig {
         applicationId "com.mrt.jarvis"
         minSdk 28
-        targetSdk 28          // برای سازگاری با هد‌یونیت
-        versionCode 4
-        versionName "2.1.0"
+        targetSdk 28
+        versionCode 5
+        versionName "2.2.0"
         
-        // این خط اسم فایل خروجی را به MRT1 تغییر می‌دهد
         setProperty("archivesBaseName", "MRT1")
+
+        // این بخش برای سازگاری با پردازنده هد‌یونیت است
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
+    }
+
+    // امضای اجباری برای نصب روی هد‌یونیت
+    signingConfigs {
+        debug {
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
     }
 
     buildTypes {
         release {
-            minifyEnabled false      // <-- خاموش کردن فشرده‌سازی برای جلوگیری از خرابی فایل 50MB
-            shrinkResources false    // <-- خاموش کردن حذف منابع
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
@@ -56,28 +68,19 @@ android {
 }
 
 dependencies {
-    // ============ پایه‌ی اندروید ============
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.activity:activity-ktx:1.8.2'
-
-    // ============ چیدمان و لیست‌ها ============
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'androidx.fragment:fragment-ktx:1.6.2'
-
-    // ============ ViewModel + LiveData ============
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
-
-    // ============ ذخیره‌ی امن کلید OpenAI ============
     implementation 'androidx.security:security-crypto:1.1.0-alpha06'
-
-    // ============ Coroutines ============
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
 
-    // ============ تشخیص گفتار آفلاین Vosk ============
+    // Vosk
     implementation 'com.alphacephei:vosk-android:0.3.47'
     implementation 'net.java.dev.jna:jna:5.13.0@aar'
 }
