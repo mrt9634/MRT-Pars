@@ -11,14 +11,17 @@ android {
         applicationId "com.mrt.jarvis"
         minSdk 28
         targetSdk 28          // برای سازگاری با هد‌یونیت
-        versionCode 3
-        versionName "2.0.0"
+        versionCode 4
+        versionName "2.1.0"
+        
+        // این خط اسم فایل خروجی را به MRT1 تغییر می‌دهد
+        setProperty("archivesBaseName", "MRT1")
     }
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false      // <-- خاموش کردن فشرده‌سازی برای جلوگیری از خرابی فایل 50MB
+            shrinkResources false    // <-- خاموش کردن حذف منابع
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
@@ -41,7 +44,6 @@ android {
         abortOnError = false 
     }
 
-    // این بخش برای جلوگیری از تداخل فایل‌های Vosk و JNA حیاتی است
     packaging {
         resources.excludes += [
             'META-INF/*.kotlin_module',
