@@ -9,24 +9,25 @@ android {
 
     defaultConfig {
         applicationId "com.mrt.jarvis"
-        minSdk 28
+        minSdk 21
         targetSdk 28
-        versionCode 5
-        versionName "2.2.0"
+        versionCode 8
+        versionName "2.5.0"
         
         setProperty("archivesBaseName", "MRT1")
 
-        // این بخش برای سازگاری با پردازنده هد‌یونیت است
+        // 🔥 این خط جادو می‌کنه: فقط کتابخانه‌های پردازنده هد‌یونیت رو بیلد کن
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a'
         }
     }
 
-    // امضای اجباری برای نصب روی هد‌یونیت
     signingConfigs {
         debug {
             v1SigningEnabled true
             v2SigningEnabled true
+            v3SigningEnabled false
+            v4SigningEnabled false
         }
     }
 
@@ -44,19 +45,14 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
     
-    kotlinOptions { 
-        jvmTarget = '17' 
-    }
-    
-    buildFeatures { 
-        buildConfig = true 
-    }
-    
-    lint { 
-        abortOnError = false 
-    }
+    kotlinOptions { jvmTarget = '17' }
+    buildFeatures { buildConfig = true }
+    lint { abortOnError = false }
 
     packaging {
+        jniLibs {
+            useLegacyPackaging = true 
+        }
         resources.excludes += [
             'META-INF/*.kotlin_module',
             'META-INF/DEPENDENCIES',
@@ -80,7 +76,6 @@ dependencies {
     implementation 'androidx.security:security-crypto:1.1.0-alpha06'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
 
-    // Vosk
     implementation 'com.alphacephei:vosk-android:0.3.47'
     implementation 'net.java.dev.jna:jna:5.13.0@aar'
 }
