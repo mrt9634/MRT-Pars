@@ -7,7 +7,6 @@
     android:layoutDirection="ltr"
     android:padding="16dp">
 
-    <!-- نوار بالا (ساعت و وضعیت) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +22,6 @@
             android:text="14:12"/>
     </LinearLayout>
 
-    <!-- ردیف کارت‌ها -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -32,7 +30,7 @@
         android:gravity="center_vertical"
         android:baselineAligned="false">
 
-        <!-- کارت 1: Media/Radio -->
+        <!-- کارت 1 -->
         <LinearLayout
             android:id="@+id/cardMedia"
             android:layout_width="0dp"
@@ -44,7 +42,6 @@
             android:gravity="center"
             android:clickable="true"
             android:focusable="true">
-            <!-- آیکون (بعداً با وکتور جایگزین می‌شود) -->
             <ImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
@@ -59,7 +56,7 @@
                 android:textSize="14sp"/>
         </LinearLayout>
 
-        <!-- کارت 2: Communication -->
+        <!-- کارت 2 -->
         <LinearLayout
             android:id="@+id/cardComm"
             android:layout_width="0dp"
@@ -85,7 +82,7 @@
                 android:textSize="14sp"/>
         </LinearLayout>
 
-        <!-- کارت 3: Navigation -->
+        <!-- کارت 3 -->
         <LinearLayout
             android:id="@+id/cardNav"
             android:layout_width="0dp"
@@ -111,7 +108,7 @@
                 android:textSize="14sp"/>
         </LinearLayout>
 
-        <!-- کارت 4: My Vehicle -->
+        <!-- کارت 4 -->
         <LinearLayout
             android:id="@+id/cardVehicle"
             android:layout_width="0dp"
@@ -137,7 +134,7 @@
                 android:textSize="14sp"/>
         </LinearLayout>
 
-        <!-- کارت 5: Notifications -->
+        <!-- کارت 5 -->
         <LinearLayout
             android:id="@+id/cardNotif"
             android:layout_width="0dp"
