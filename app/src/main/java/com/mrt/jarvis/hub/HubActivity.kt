@@ -26,13 +26,22 @@ class HubActivity : AppCompatActivity() {
 
         tvTime = findViewById(R.id.tvTime)
 
-        findViewById<android.view.View>(R.id.cardMedia).setOnClickListener { startActivity(Intent(this, MusicActivity::class.java)) }
-        findViewById<android.view.View>(R.id.cardNav).setOnClickListener { startActivity(Intent(this, GpsActivity::class.java)) }
-        findViewById<android.view.View>(R.id.cardVehicle).setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
-        findViewById<android.view.View>(R.id.cardComm).setOnClickListener { 
-            try { startActivity(Intent(Intent.ACTION_DIAL)) } catch (e: Exception) {}
+        // اتصال کارت‌های جدید BMW
+        findViewById<android.view.View>(R.id.cardMedia).setOnClickListener { 
+            startActivity(Intent(this, MusicActivity::class.java)) 
         }
-        findViewById<android.view.View>(R.id.cardNotif).setOnClickListener { startActivity(Intent(this, AppsGridActivity::class.java)) }
+        findViewById<android.view.View>(R.id.cardNav).setOnClickListener { 
+            startActivity(Intent(this, GpsActivity::class.java)) 
+        }
+        findViewById<android.view.View>(R.id.cardVehicle).setOnClickListener { 
+            startActivity(Intent(this, MainActivity::class.java)) 
+        }
+        findViewById<android.view.View>(R.id.cardComm).setOnClickListener { 
+            try { startActivity(Intent(Intent.ACTION_DIAL)) } catch (e: Exception) {} 
+        }
+        findViewById<android.view.View>(R.id.cardNotif).setOnClickListener { 
+            startActivity(Intent(this, AppsGridActivity::class.java)) 
+        }
 
         updateClock()
         h.postDelayed(object : Runnable {
