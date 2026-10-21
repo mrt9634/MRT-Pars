@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- سایه عمیق برای حس سه‌بعدی -->
+    <item android:top="4dp" android:left="2dp" android:right="-2dp" android:bottom="-4dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#AA000000"/>
+            <corners android:radius="8dp"/>
+        </shape>
+    </item>
+    
+    <!-- بدنه شیشه‌ای با گرادیانت آبی تیره BMW -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="90"
+                android:startColor="#1E2B3A"
+                android:centerColor="#0F161F"
+                android:endColor="#05080C"/>
+            <corners android:radius="8dp"/>
+            <stroke android:width="1dp" android:color="#4A5C70"/>
+        </shape>
+    </item>
+</layer-list>
