@@ -1,65 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/bg_hub"
-    android:layoutDirection="ltr"
-    android:padding="16dp">
+    android:layoutDirection="ltr">
+
+    <!-- عکس پس‌زمینه کابین BMW -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_hub_main" />
+
+    <!-- لایه تاریک برای خوانایی -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000" />
 
     <!-- نوار بالا (ساعت) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="end"
-        android:paddingBottom="20dp">
+        android:gravity="center_vertical"
+        android:padding="20dp">
+        
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/ic_menu_view"
+            android:tint="#FFFFFF"/>
+            
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
         <TextView
             android:id="@+id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-light"
             android:text="14:12"/>
     </LinearLayout>
 
-    <!-- ردیف کارت‌ها -->
+    <!-- عکس ماشین BMW در وسط صفحه -->
+    <ImageView
+        android:id="@+id/imgCar"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="160dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/img_car_bmw"
+        android:alpha="0.9"/>
+
+    <!-- ردیف کارت‌های شیشه‌ای سه‌بعدی -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="20dp"
         android:baselineAligned="false">
 
-        <LinearLayout android:id="@+id/cardMedia" android:layout_width="0dp" android:layout_weight="1" android:layout_height="180dp" android:layout_marginEnd="8dp" android:background="@drawable/bmw_3d_card_selected" android:orientation="vertical" android:gravity="center">
-            <ImageView android:layout_width="48dp" android:layout_height="48dp" android:src="@drawable/ic_media"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Media/Radio" android:textColor="#FFFFFF" android:layout_marginTop="16dp" android:textSize="12sp"/>
+        <!-- کارت ۱: رسانه -->
+        <LinearLayout
+            android:id="@+id/cardMedia"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="160dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bmw_3d_card_selected"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_media"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Media/Radio"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:layout_marginTop="12dp"/>
         </LinearLayout>
 
-        <LinearLayout android:id="@+id/cardComm" android:layout_width="0dp" android:layout_weight="1" android:layout_height="180dp" android:layout_marginEnd="8dp" android:background="@drawable/bmw_3d_card" android:orientation="vertical" android:gravity="center">
-            <ImageView android:layout_width="48dp" android:layout_height="48dp" android:src="@drawable/ic_comm"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Communication" android:textColor="#8A96A8" android:layout_marginTop="16dp" android:textSize="12sp"/>
+        <!-- کارت ۲: ارتباطات -->
+        <LinearLayout
+            android:id="@+id/cardComm"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="160dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bmw_3d_card"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_comm"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Communication"
+                android:textColor="#8A96A8"
+                android:textSize="12sp"
+                android:layout_marginTop="12dp"/>
         </LinearLayout>
 
-        <LinearLayout android:id="@+id/cardNav" android:layout_width="0dp" android:layout_weight="1" android:layout_height="180dp" android:layout_marginEnd="8dp" android:background="@drawable/bmw_3d_card" android:orientation="vertical" android:gravity="center">
-            <ImageView android:layout_width="48dp" android:layout_height="48dp" android:src="@drawable/ic_nav"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Navigation" android:textColor="#8A96A8" android:layout_marginTop="16dp" android:textSize="12sp"/>
+        <!-- کارت ۳: ناوبری -->
+        <LinearLayout
+            android:id="@+id/cardNav"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="160dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bmw_3d_card"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_nav"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Navigation"
+                android:textColor="#8A96A8"
+                android:textSize="12sp"
+                android:layout_marginTop="12dp"/>
         </LinearLayout>
 
-        <LinearLayout android:id="@+id/cardConnected" android:layout_width="0dp" android:layout_weight="1" android:layout_height="180dp" android:layout_marginEnd="8dp" android:background="@drawable/bmw_3d_card" android:orientation="vertical" android:gravity="center">
-            <ImageView android:layout_width="48dp" android:layout_height="48dp" android:src="@drawable/ic_connected"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ConnectedDrive" android:textColor="#8A96A8" android:layout_marginTop="16dp" android:textSize="12sp"/>
+        <!-- کارت ۴: ConnectedDrive -->
+        <LinearLayout
+            android:id="@+id/cardConnected"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="160dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bmw_3d_card"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_apps"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ConnectedDrive"
+                android:textColor="#8A96A8"
+                android:textSize="12sp"
+                android:layout_marginTop="12dp"/>
         </LinearLayout>
 
-        <LinearLayout android:id="@+id/cardVehicle" android:layout_width="0dp" android:layout_weight="1" android:layout_height="180dp" android:layout_marginEnd="8dp" android:background="@drawable/bmw_3d_card" android:orientation="vertical" android:gravity="center">
-            <ImageView android:layout_width="48dp" android:layout_height="48dp" android:src="@drawable/ic_vehicle"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="My Vehicle" android:textColor="#8A96A8" android:layout_marginTop="16dp" android:textSize="12sp"/>
+        <!-- کارت ۵: خودروی من -->
+        <LinearLayout
+            android:id="@+id/cardVehicle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="160dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bmw_3d_card"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_car"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Vehicle"
+                android:textColor="#8A96A8"
+                android:textSize="12sp"
+                android:layout_marginTop="12dp"/>
         </LinearLayout>
 
-        <LinearLayout android:id="@+id/cardNotif" android:layout_width="0dp" android:layout_weight="1" android:layout_height="180dp" android:background="@drawable/bmw_3d_card" android:orientation="vertical" android:gravity="center">
-            <ImageView android:layout_width="48dp" android:layout_height="48dp" android:src="@drawable/ic_notif"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Notifications" android:textColor="#8A96A8" android:layout_marginTop="16dp" android:textSize="12sp"/>
+        <!-- کارت ۶: اعلان‌ها -->
+        <LinearLayout
+            android:id="@+id/cardNotif"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="160dp"
+            android:background="@drawable/bmw_3d_card"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_assistant"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Assistant"
+                android:textColor="#8A96A8"
+                android:textSize="12sp"
+                android:layout_marginTop="12dp"/>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
