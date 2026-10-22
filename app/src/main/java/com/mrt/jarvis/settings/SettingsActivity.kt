@@ -189,6 +189,13 @@ class SettingsActivity : AppCompatActivity() {
             prefs.dashStyle = it
             uiDirty = true
         }
+        
+        // ============ حالت اسپورت ============
+        switch(R.string.s_sport_mode, prefs.sportMode) {
+            prefs.sportMode = it
+            uiDirty = true
+        }
+        
         radio(R.string.s_layout,
             listOf(
                 "standard" to R.string.l_standard,
