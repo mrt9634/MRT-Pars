@@ -166,6 +166,7 @@
     <string name="s_dash_style">سبک داشبورد</string>
     <string name="s_dash_bmw">BMW Live Cockpit</string>
     <string name="s_dash_classic">کلاسیک</string>
+    <string name="s_sport_mode">حالت اسپورت (Sport Mode)</string>
 
     <string name="s_clock24">ساعت ۲۴ ساعته</string>
     <string name="s_analog">ساعت عقربه‌ای</string>
@@ -250,6 +251,7 @@
     <string name="r_ai_error">خطا در ارتباط با هوش مصنوعی.</string>
     <string name="r_not_understood">متوجه نشدم.</string>
     <string name="r_no_stt">سرویس تشخیص گفتار روی دستگاه نصب نیست.</string>
+    <string name="r_model_missing">مدل صوتی یافت نشد. فایل model-fa را در حافظه به مسیر MRT1 کپی کنید.</string>
     <string name="r_opening_music">باز کردن پخش‌کننده موسیقی…</string>
     <string name="r_opening_nav">باز کردن ناوبری…</string>
     <string name="r_opening_dash">باز کردن داشبورد…</string>
