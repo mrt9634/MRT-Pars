@@ -80,11 +80,27 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         tvGear = findViewById(R.id.tvGear)
         tvAssistant = findViewById(R.id.tvAssistant)
 
+        // ============ اعمال حالت اسپورت ============
+        if (prefs.sportMode) {
+            // رنگ قرمز/نارنجی آتشین برای حالت اسپورت
+            gSpeed.accentColor = 0xFFFF4500.toInt()
+            gRpm.accentColor = 0xFFFF4500.toInt()
+            tvSpeedBig.setTextColor(0xFFFF4500.toInt())
+            tvDriveMode.text = "SPORT MODE"
+            tvDriveMode.setTextColor(0xFFFF4500.toInt())
+            tvDriveMode.visibility = View.VISIBLE
+        } else {
+            // رنگ‌های پیش‌فرض BMW
+            gSpeed.accentColor = 0xFFF5C542.toInt() // زرد BMW
+            gRpm.accentColor = 0xFFE5484D.toInt()   // قرمز
+            tvSpeedBig.setTextColor(getColor(R.color.text))
+            tvDriveMode.visibility = View.GONE
+        }
+
         // تنظیمات گیج دور موتور
         gRpm.apply {
             maxValue = 8000f
             majorStep = 1000f
-            accentColor = 0xFFE5484D.toInt()
             numberFormat = { (it / 1000f).toInt().toString() }
         }
         
@@ -123,7 +139,7 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         // راه‌اندازی صدا با تاخیر (تا UI کامل لود بشه)
         h.postDelayed({ if (voice == null) voice = VoiceManager(this, this) }, 4000)
         
-        // درخواست خودکار مجوز GPS در بدو ورود
+        // درخواست خودکار مجوز GPS
         checkLocationPermission()
 
         if (!HardwareProfiler.isDone(this)) Thread {
@@ -150,11 +166,10 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
     override fun onRequestPermissionsResult(r: Int, p: Array<out String>, g: IntArray) {
         super.onRequestPermissionsResult(r, p, g)
         
-        if (r == 1) { // درخواست میکروفون
+        if (r == 1) { // میکروفون
             if (g.firstOrNull() == PackageManager.PERMISSION_GRANTED) startVoice()
-        } else if (r == 2) { // درخواست GPS
+        } else if (r == 2) { // GPS
             if (g.firstOrNull() == PackageManager.PERMISSION_GRANTED) {
-                // اگر مجوز GPS داد، ریپازیتوری رو ری‌استارت می‌کنیم تا سنسور GPS فعال بشه
                 VehicleDataRepository.restart(this)
             }
         }
@@ -175,11 +190,10 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
         
         limitSign.limit = v.speedLimit
         
-        if (v.driveMode != null) {
+        // اگر حالت اسپورت خاموش بود و ماشین حالت درایو داشت، نشون بده
+        if (!prefs.sportMode && v.driveMode != null) {
             tvDriveMode.text = v.driveMode
             tvDriveMode.visibility = View.VISIBLE
-        } else {
-            tvDriveMode.visibility = View.GONE
         }
     }
 
@@ -210,8 +224,9 @@ class MainActivity : AppCompatActivity(), VoiceManager.Callback {
     
     override fun onError(code: Int) { 
         val msgRes = when (code) {
-            -2 -> R.string.music_loading // مدل در حال لود شدن است
-            -1 -> R.string.r_no_stt      
+            -3 -> R.string.r_model_missing // مدل پیدا نشد
+            -2 -> R.string.music_loading    // مدل در حال لود
+            -1 -> R.string.r_no_stt         // خطای سخت افزاری
             else -> R.string.r_not_understood 
         }
         tvAssistant.setText(msgRes)
