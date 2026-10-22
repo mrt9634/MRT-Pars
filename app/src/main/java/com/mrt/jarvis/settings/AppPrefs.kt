@@ -56,6 +56,9 @@ class AppPrefs(ctx: Context) {
     var showInfoVehicle by bool("info_vehicle", true)
     var redline by int("redline", 6000)
     var speedMax by int("speed_max", 220)
+    
+    // ============ Sport Mode ============
+    var sportMode by bool("sport_mode", false)
 
     // ============ Clock & date (always the Android system clock and timezone) ============
     var clock24 by bool("clock24", true)
