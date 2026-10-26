@@ -4,61 +4,40 @@
     android:layout_height="match_parent"
     android:layoutDirection="ltr">
 
-    <!-- عکس پس‌زمینه کابین BMW -->
+    <!-- عکس پس‌زمینه -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/bg_hub_main" />
 
-    <!-- لایه تاریک برای خوانایی -->
+    <!-- لایه تاریک -->
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#80000000" />
 
-    <!-- نوار بالا (ساعت) -->
+    <!-- نوار بالا -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:padding="20dp">
-        
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@android:drawable/ic_menu_view"
-            android:tint="#FFFFFF"/>
-            
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_weight="1"/>
-
         <TextView
             android:id="@+id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-            android:fontFamily="sans-serif-light"
             android:text="14:12"/>
     </LinearLayout>
 
-    <!-- عکس ماشین BMW در وسط صفحه -->
-    <ImageView
-        android:id="@+id/imgCar"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="160dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/img_car_bmw"
-        android:alpha="0.9"/>
-
-    <!-- ردیف کارت‌های شیشه‌ای سه‌بعدی -->
+    <!-- ردیف کارت‌ها -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -81,10 +60,12 @@
             android:gravity="center"
             android:clickable="true"
             android:focusable="true">
+            <!-- استفاده از آیکون پیش‌فرض اندروید -->
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_media"/>
+                android:src="@android:drawable/ic_media_play"
+                android:tint="#E88A3C"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -109,7 +90,8 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_comm"/>
+                android:src="@android:drawable/ic_menu_call"
+                android:tint="#8A96A8"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -134,7 +116,8 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_nav"/>
+                android:src="@android:drawable/ic_menu_mylocation"
+                android:tint="#8A96A8"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -159,7 +142,8 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_apps"/>
+                android:src="@android:drawable/ic_menu_compass"
+                android:tint="#8A96A8"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -184,7 +168,8 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_car"/>
+                android:src="@android:drawable/ic_menu_info_details"
+                android:tint="#8A96A8"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -208,11 +193,12 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_assistant"/>
+                android:src="@android:drawable/ic_dialog_info"
+                android:tint="#8A96A8"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Assistant"
+                android:text="Notifications"
                 android:textColor="#8A96A8"
                 android:textSize="12sp"
                 android:layout_marginTop="12dp"/>
